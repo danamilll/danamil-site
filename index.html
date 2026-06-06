@@ -15,8 +15,6 @@
     :root {
       --bg: #07080a;
       --surface: rgba(18, 20, 25, 0.72);
-      --surface-strong: rgba(25, 28, 35, 0.88);
-      --surface-soft: rgba(255, 255, 255, 0.045);
       --text: #f4efe6;
       --muted: #a5a096;
       --muted-dark: #6d7078;
@@ -38,7 +36,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
       font-family: Manrope, Arial, sans-serif;
       color: var(--text);
       background:
@@ -85,7 +83,7 @@
       width: min(1360px, calc(100% - 34px));
       min-height: 100vh;
       margin: 0 auto;
-      padding: 22px 0 130px;
+      padding: 22px 0 44px;
     }
 
     .menubar {
@@ -97,7 +95,7 @@
       box-shadow: 0 18px 70px rgba(0,0,0,0.28);
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       padding: 0 16px;
       animation: fadeDown 0.7s ease both;
     }
@@ -119,26 +117,11 @@
       box-shadow: 0 0 30px rgba(196, 164, 106, 0.72);
     }
 
-    .menubar-center {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .menubar-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: var(--muted-dark);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-    }
-
     .stage {
-      height: calc(100vh - 190px);
-      min-height: 560px;
+      min-height: calc(100vh - 112px);
       display: grid;
-      grid-template-columns: 0.98fr 1.02fr;
-      gap: 28px;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 34px;
       align-items: center;
       padding-top: 28px;
     }
@@ -147,99 +130,113 @@
       animation: rise 0.8s ease both;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--brass);
-      font-family: "IBM Plex Mono", monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 26px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 32px;
-      height: 1px;
-      background: var(--brass);
-      opacity: 0.75;
-    }
-
     h1 {
       margin: 0;
-      max-width: 720px;
-      font-size: clamp(58px, 7vw, 112px);
-      line-height: 0.94;
-      letter-spacing: -0.065em;
+      max-width: 780px;
+      font-size: clamp(54px, 6.8vw, 104px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
       font-weight: 800;
     }
 
-    .lead {
-      margin: 30px 0 0;
+    .subtitle {
+      margin: 34px 0 0;
+      display: grid;
+      gap: 8px;
       max-width: 650px;
+    }
+
+    .subtitle-line {
+      margin: 0;
       color: var(--text);
-      font-size: clamp(22px, 2.35vw, 34px);
-      line-height: 1.15;
+      font-size: clamp(24px, 2.5vw, 38px);
+      line-height: 1.12;
       letter-spacing: -0.04em;
-      font-weight: 500;
+      font-weight: 600;
     }
 
-    .desc {
-      margin: 24px 0 36px;
-      max-width: 560px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.62;
+    .subtitle-line.school {
+      color: var(--brass);
     }
 
-    .quick-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .main-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 48px;
+      max-width: 660px;
     }
 
-    .btn {
-      min-height: 48px;
-      padding: 0 18px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.045);
+    .main-button {
+      min-height: 104px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.11), transparent),
+        rgba(255,255,255,0.05);
       color: var(--text);
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
-      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      text-align: left;
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.24s ease,
+        background 0.24s ease,
+        border-color 0.24s ease,
+        box-shadow 0.24s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-3px);
-      background: rgba(255,255,255,0.075);
-      border-color: rgba(255,255,255,0.32);
-      box-shadow: 0 18px 48px rgba(0,0,0,0.32);
+    .main-button::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -60px;
+      bottom: -70px;
+      border-radius: 50%;
+      background: rgba(196, 164, 106, 0.13);
+      transition: transform 0.28s ease, background 0.28s ease;
     }
 
-    .btn.primary {
-      background: var(--text);
-      color: #090a0d;
-      border-color: var(--text);
+    .main-button:hover {
+      transform: translateY(-7px);
+      border-color: rgba(196,164,106,0.58);
+      background:
+        linear-gradient(145deg, rgba(196,164,106,0.16), transparent),
+        rgba(255,255,255,0.075);
+      box-shadow: 0 26px 80px rgba(0,0,0,0.38);
     }
 
-    .btn.primary:hover {
-      background: var(--brass);
-      border-color: var(--brass);
-      box-shadow: 0 18px 48px rgba(196,164,106,0.16);
+    .main-button:hover::after {
+      transform: scale(1.3);
+      background: rgba(196, 164, 106, 0.2);
+    }
+
+    .main-button-num {
+      color: var(--brass);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 14px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    .main-button-title {
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      position: relative;
+      z-index: 1;
     }
 
     .visual-area {
       position: relative;
-      height: 620px;
+      min-height: 620px;
       animation: rise 0.9s ease both;
     }
 
@@ -298,20 +295,20 @@
     }
 
     .profile-window {
-      width: 470px;
-      height: 470px;
+      width: 520px;
+      min-height: 500px;
       right: 0;
-      top: 34px;
+      top: 38px;
       z-index: 2;
     }
 
     .profile-body {
-      padding: 22px;
+      padding: 24px;
     }
 
     .photo {
-      height: 250px;
-      border-radius: 22px;
+      height: 300px;
+      border-radius: 24px;
       border: 1px dashed rgba(255,255,255,0.22);
       background:
         radial-gradient(circle at 28% 18%, rgba(125,143,184,0.22), transparent 34%),
@@ -346,9 +343,9 @@
     }
 
     .profile-text {
-      margin: 20px 0 0;
+      margin: 22px 0 0;
       color: var(--muted);
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.55;
     }
 
@@ -360,7 +357,7 @@
     }
 
     .tag {
-      padding: 7px 10px;
+      padding: 8px 11px;
       border: 1px solid var(--line);
       border-radius: 999px;
       background: rgba(255,255,255,0.04);
@@ -368,54 +365,13 @@
       font-weight: 800;
     }
 
-    .notes-window {
-      width: 410px;
-      min-height: 235px;
-      left: 14px;
-      bottom: 34px;
-      z-index: 3;
-    }
-
-    .notes-body {
-      padding: 22px;
-    }
-
-    .small-title {
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--brass);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 18px;
-      font-weight: 600;
-    }
-
-    .status-list {
-      display: grid;
-      gap: 13px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    .status-item {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 10px;
-    }
-
-    .plus {
-      color: var(--brass);
-      font-weight: 900;
-    }
-
     .map-window {
-      width: 330px;
-      height: 215px;
-      right: 110px;
-      bottom: 0;
+      width: 360px;
+      height: 230px;
+      left: 18px;
+      bottom: 42px;
       z-index: 1;
-      opacity: 0.82;
+      opacity: 0.86;
     }
 
     .map-body {
@@ -435,16 +391,16 @@
     }
 
     .map-line.one {
-      width: 180px;
-      left: 38px;
-      top: 70px;
+      width: 190px;
+      left: 42px;
+      top: 76px;
       transform: rotate(18deg);
     }
 
     .map-line.two {
-      width: 130px;
-      left: 120px;
-      top: 105px;
+      width: 145px;
+      left: 130px;
+      top: 112px;
       transform: rotate(-31deg);
     }
 
@@ -457,66 +413,9 @@
       box-shadow: 0 0 20px rgba(196,164,106,0.6);
     }
 
-    .map-dot.a { left: 36px; top: 66px; }
-    .map-dot.b { left: 196px; top: 115px; }
-    .map-dot.c { left: 245px; top: 40px; }
-
-    .dock {
-      position: fixed;
-      left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%);
-      z-index: 30;
-      display: flex;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 34px;
-      background: rgba(14, 16, 20, 0.64);
-      backdrop-filter: blur(24px);
-      box-shadow: 0 28px 90px rgba(0,0,0,0.52);
-      animation: fadeUp 0.8s ease both;
-    }
-
-    .dock-btn {
-      width: 130px;
-      height: 86px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.10), transparent),
-        rgba(255,255,255,0.045);
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 16px 18px;
-      text-align: left;
-      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
-    }
-
-    .dock-btn:hover {
-      transform: translateY(-8px) scale(1.03);
-      border-color: rgba(196,164,106,0.54);
-      background:
-        linear-gradient(145deg, rgba(196,164,106,0.18), transparent),
-        rgba(255,255,255,0.07);
-    }
-
-    .dock-num {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 14px;
-      color: var(--brass);
-      font-weight: 600;
-    }
-
-    .dock-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      white-space: nowrap;
-    }
+    .map-dot.a { left: 40px; top: 72px; }
+    .map-dot.b { left: 210px; top: 123px; }
+    .map-dot.c { left: 270px; top: 48px; }
 
     .floating-window {
       position: fixed;
@@ -662,16 +561,6 @@
       background: rgba(255,255,255,0.075);
     }
 
-    .hint {
-      position: fixed;
-      right: 28px;
-      bottom: 32px;
-      color: var(--muted-dark);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      z-index: 5;
-    }
-
     @keyframes rise {
       from {
         opacity: 0;
@@ -694,17 +583,6 @@
       }
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translate(-50%, 12px);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-      }
-    }
-
     @keyframes windowIn {
       from {
         opacity: 0;
@@ -716,55 +594,32 @@
       }
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1080px) {
       body {
         overflow: auto;
       }
 
-      .desktop {
-        padding-bottom: 150px;
-      }
-
       .stage {
-        height: auto;
         min-height: auto;
         grid-template-columns: 1fr;
-        padding-top: 44px;
+        padding-top: 54px;
+        gap: 54px;
       }
 
       .visual-area {
-        height: 560px;
+        min-height: 620px;
       }
 
       .profile-window {
         right: 0;
-        left: auto;
-      }
-
-      .notes-window {
-        left: 0;
       }
 
       .map-window {
-        right: 70px;
-      }
-
-      .hint {
-        display: none;
-      }
-
-      .dock {
-        max-width: calc(100% - 24px);
-        overflow-x: auto;
-        justify-content: flex-start;
-      }
-
-      .dock-btn {
-        min-width: 130px;
+        left: 0;
       }
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 680px) {
       body {
         overflow: auto;
       }
@@ -774,42 +629,30 @@
         padding-top: 14px;
       }
 
-      .menubar-center,
-      .menubar-right {
-        display: none;
-      }
-
-      .menubar {
-        justify-content: center;
-      }
-
       .stage {
         padding-top: 36px;
       }
 
       h1 {
-        font-size: 54px;
+        font-size: 48px;
         letter-spacing: -0.045em;
       }
 
-      .lead {
-        font-size: 22px;
+      .subtitle-line {
+        font-size: 23px;
       }
 
-      .desc {
-        font-size: 16px;
+      .main-buttons {
+        grid-template-columns: 1fr;
+        margin-top: 36px;
       }
 
-      .quick-actions {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
+      .main-button {
+        min-height: 88px;
       }
 
       .visual-area {
-        height: auto;
+        min-height: auto;
         display: grid;
         gap: 18px;
       }
@@ -821,29 +664,12 @@
       }
 
       .profile-window,
-      .notes-window,
       .map-window {
         width: 100%;
       }
 
       .map-window {
         display: none;
-      }
-
-      .dock {
-        width: calc(100% - 22px);
-        overflow-x: auto;
-        justify-content: flex-start;
-        border-radius: 24px;
-      }
-
-      .dock-btn {
-        min-width: 118px;
-        height: 78px;
-      }
-
-      .dock-title {
-        font-size: 16px;
       }
 
       .floating-window {
@@ -876,35 +702,43 @@
         <span class="brand-dot"></span>
         <span>danamil.ru</span>
       </div>
-
-      <div class="menubar-center">personal marketing desktop</div>
-
-      <div class="menubar-right">
-        <span>RANEPA</span>
-        <span>2026</span>
-      </div>
     </header>
 
     <main class="stage">
 
       <section class="hero-copy">
-        <div class="eyebrow">personal site</div>
+        <h1>Артур Виноградов. Danamil.</h1>
 
-        <h1>Артур<br>Виноградов.</h1>
+        <div class="subtitle">
+          <p class="subtitle-line school">RANEPA</p>
+          <p class="subtitle-line">Маркетинг, брендинг, медиа, стратегии.</p>
+        </div>
 
-        <p class="lead">
-          Danamil. RANEPA. Маркетинг, брендинг, медиа, стратегии.
-        </p>
+        <div class="main-buttons">
+          <button class="main-button" data-open="work">
+            <span class="main-button-num">01</span>
+            <span class="main-button-title">Работа</span>
+          </button>
 
-        <p class="desc">
-          Начинающий маркетолог. Изучаю бренды, коммуникации и цифровую среду.
-          Собираю здесь работу, заметки, поездки и личные проекты.
-        </p>
+          <button class="main-button" data-open="notes">
+            <span class="main-button-num">02</span>
+            <span class="main-button-title">Заметки</span>
+          </button>
 
-        <div class="quick-actions">
-          <button class="btn primary" data-open="contacts">Связаться</button>
-          <button class="btn" data-open="work">Открыть работу</button>
-          <button class="btn" data-open="notes">Заметки</button>
+          <button class="main-button" data-open="about">
+            <span class="main-button-num">03</span>
+            <span class="main-button-title">Обо мне</span>
+          </button>
+
+          <button class="main-button" data-open="travel">
+            <span class="main-button-num">04</span>
+            <span class="main-button-title">Путешествия</span>
+          </button>
+
+          <button class="main-button" data-open="contacts">
+            <span class="main-button-num">05</span>
+            <span class="main-button-title">Контакты</span>
+          </button>
         </div>
       </section>
 
@@ -937,38 +771,6 @@
           </div>
         </article>
 
-        <article class="glass-window notes-window">
-          <div class="window-bar">
-            <div class="dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <span>now.txt</span>
-          </div>
-
-          <div class="notes-body">
-            <div class="small-title">сейчас</div>
-
-            <div class="status-list">
-              <div class="status-item">
-                <span class="plus">+</span>
-                <span>собираю личный сайт и структуру портфолио</span>
-              </div>
-
-              <div class="status-item">
-                <span class="plus">+</span>
-                <span>изучаю маркетинг, бренды и коммуникации</span>
-              </div>
-
-              <div class="status-item">
-                <span class="plus">+</span>
-                <span>учусь превращать опыт в понятные кейсы</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
         <article class="glass-window map-window">
           <div class="window-bar">
             <div class="dots">
@@ -992,35 +794,6 @@
 
     </main>
   </div>
-
-  <nav class="dock" aria-label="Разделы сайта">
-    <button class="dock-btn" data-open="work">
-      <span class="dock-num">01</span>
-      <span class="dock-title">Работа</span>
-    </button>
-
-    <button class="dock-btn" data-open="notes">
-      <span class="dock-num">02</span>
-      <span class="dock-title">Заметки</span>
-    </button>
-
-    <button class="dock-btn" data-open="about">
-      <span class="dock-num">03</span>
-      <span class="dock-title">Обо мне</span>
-    </button>
-
-    <button class="dock-btn" data-open="travel">
-      <span class="dock-num">04</span>
-      <span class="dock-title">Путешествия</span>
-    </button>
-
-    <button class="dock-btn" data-open="contacts">
-      <span class="dock-num">05</span>
-      <span class="dock-title">Контакты</span>
-    </button>
-  </nav>
-
-  <div class="hint">drag windows · open dock apps</div>
 
   <div class="floating-window" id="window-work" style="left: 11%; top: 17%;">
     <div class="floating-top">
