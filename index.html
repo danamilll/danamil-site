@@ -6,40 +6,95 @@
   <style>
     body {
       max-width: 760px;
-      margin: 70px auto;
-      padding: 0 20px;
+      margin: 90px auto;
+      padding: 0 24px;
       font-family: Arial, sans-serif;
       font-size: 18px;
       line-height: 1.55;
       color: #111;
-      background: #fff;
+      background: #fafafa;
     }
 
     h1 {
-      font-size: 32px;
-      margin-bottom: 30px;
+      font-size: 42px;
+      line-height: 1.1;
+      margin-bottom: 22px;
+      letter-spacing: -1px;
+    }
+
+    .lead {
+      font-size: 22px;
+      max-width: 620px;
+      margin-bottom: 34px;
+    }
+
+    .small {
+      color: #555;
+      max-width: 620px;
+    }
+
+    nav {
+      margin-top: 45px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     a {
-      color: blue;
+      color: #111;
       text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    a:hover {
+      color: #555;
+    }
+
+    .footer {
+      margin-top: 70px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        margin: 50px auto;
+        font-size: 17px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .lead {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>Артур Виноградов. Danamil.</h1>
+  <h1>Артур Виноградов.<br>Danamil.</h1>
 
-  <p>RANEPA. Маркетинг, брендинг, медиа, стратегии.</p>
+  <p class="lead">
+    RANEPA. Маркетинг, брендинг, медиа, стратегии.
+  </p>
 
-  <p>Начинающий маркетолог. Изучаю бренды, коммуникации и цифровую среду.</p>
+  <p class="small">
+    Начинающий маркетолог. Изучаю бренды, коммуникации и цифровую среду.
+  </p>
 
-  <p>
-    <a href="work.html">Работа</a><br>
-    <a href="notes.html">Заметки</a><br>
-    <a href="about.html">Обо мне</a><br>
-    <a href="travel.html">Путешествия</a><br>
+  <nav>
+    <a href="work.html">Работа</a>
+    <a href="notes.html">Заметки</a>
+    <a href="about.html">Обо мне</a>
+    <a href="travel.html">Путешествия</a>
     <a href="contacts.html">Контакты</a>
+  </nav>
+
+  <p class="footer">
+    danamil.ru
   </p>
 
 </body>
