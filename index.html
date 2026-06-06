@@ -22,7 +22,6 @@
 
       --brass: #c4a46a;
       --blue: #7d8fb8;
-      --olive: #79836a;
       --wine: #8f5f5f;
 
       --shadow: 0 35px 120px rgba(0, 0, 0, 0.62);
@@ -120,8 +119,8 @@
     .stage {
       min-height: calc(100vh - 112px);
       display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 34px;
+      grid-template-columns: 1fr 0.82fr;
+      gap: 44px;
       align-items: center;
       padding-top: 28px;
     }
@@ -132,9 +131,9 @@
 
     h1 {
       margin: 0;
-      max-width: 780px;
-      font-size: clamp(54px, 6.8vw, 104px);
-      line-height: 0.95;
+      max-width: 900px;
+      font-size: clamp(54px, 6.7vw, 106px);
+      line-height: 0.96;
       letter-spacing: -0.06em;
       font-weight: 800;
     }
@@ -143,13 +142,13 @@
       margin: 34px 0 0;
       display: grid;
       gap: 8px;
-      max-width: 650px;
+      max-width: 760px;
     }
 
     .subtitle-line {
       margin: 0;
       color: var(--text);
-      font-size: clamp(24px, 2.5vw, 38px);
+      font-size: clamp(24px, 2.45vw, 38px);
       line-height: 1.12;
       letter-spacing: -0.04em;
       font-weight: 600;
@@ -160,16 +159,17 @@
     }
 
     .main-buttons {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      display: flex;
       gap: 14px;
-      margin-top: 48px;
-      max-width: 660px;
+      margin-top: 52px;
+      max-width: 100%;
+      flex-wrap: nowrap;
     }
 
     .main-button {
-      min-height: 104px;
-      border-radius: 28px;
+      width: 150px;
+      min-height: 112px;
+      border-radius: 30px;
       border: 1px solid rgba(255,255,255,0.14);
       background:
         linear-gradient(145deg, rgba(255,255,255,0.11), transparent),
@@ -177,7 +177,7 @@
       color: var(--text);
       cursor: pointer;
       text-align: left;
-      padding: 20px 22px;
+      padding: 20px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -195,8 +195,8 @@
       position: absolute;
       width: 150px;
       height: 150px;
-      right: -60px;
-      bottom: -70px;
+      right: -70px;
+      bottom: -76px;
       border-radius: 50%;
       background: rgba(196, 164, 106, 0.13);
       transition: transform 0.28s ease, background 0.28s ease;
@@ -226,17 +226,18 @@
     }
 
     .main-button-title {
-      font-size: clamp(22px, 2vw, 30px);
+      font-size: 22px;
       line-height: 1;
       font-weight: 800;
       letter-spacing: -0.05em;
       position: relative;
       z-index: 1;
+      white-space: nowrap;
     }
 
     .visual-area {
       position: relative;
-      min-height: 620px;
+      min-height: 560px;
       animation: rise 0.9s ease both;
     }
 
@@ -284,21 +285,30 @@
     .dot.yellow { background: #ffbd2e; }
     .dot.green { background: #28c840; }
 
-    .floating-top .dot.red {
+    .floating-top .dot.yellow,
+    .floating-top .dot.green {
       cursor: pointer;
       transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .floating-top .dot.red:hover {
+    .floating-top .dot.yellow:hover,
+    .floating-top .dot.green:hover {
       transform: scale(1.18);
-      box-shadow: 0 0 18px rgba(255, 95, 87, 0.45);
+    }
+
+    .floating-top .dot.yellow:hover {
+      box-shadow: 0 0 18px rgba(255, 189, 46, 0.45);
+    }
+
+    .floating-top .dot.green:hover {
+      box-shadow: 0 0 18px rgba(40, 200, 64, 0.45);
     }
 
     .profile-window {
       width: 520px;
       min-height: 500px;
       right: 0;
-      top: 38px;
+      top: 34px;
       z-index: 2;
     }
 
@@ -333,15 +343,6 @@
       position: absolute;
     }
 
-    .photo::after {
-      content: "";
-      width: 245px;
-      height: 1px;
-      background: rgba(255,255,255,0.12);
-      position: absolute;
-      transform: rotate(-22deg);
-    }
-
     .profile-text {
       margin: 22px 0 0;
       color: var(--muted);
@@ -364,58 +365,6 @@
       font-size: 12px;
       font-weight: 800;
     }
-
-    .map-window {
-      width: 360px;
-      height: 230px;
-      left: 18px;
-      bottom: 42px;
-      z-index: 1;
-      opacity: 0.86;
-    }
-
-    .map-body {
-      height: calc(100% - 50px);
-      padding: 20px;
-      background:
-        linear-gradient(135deg, rgba(196,164,106,0.08), transparent),
-        rgba(255,255,255,0.018);
-      position: relative;
-    }
-
-    .map-line {
-      position: absolute;
-      height: 1px;
-      background: rgba(255,255,255,0.18);
-      transform-origin: left;
-    }
-
-    .map-line.one {
-      width: 190px;
-      left: 42px;
-      top: 76px;
-      transform: rotate(18deg);
-    }
-
-    .map-line.two {
-      width: 145px;
-      left: 130px;
-      top: 112px;
-      transform: rotate(-31deg);
-    }
-
-    .map-dot {
-      position: absolute;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--brass);
-      box-shadow: 0 0 20px rgba(196,164,106,0.6);
-    }
-
-    .map-dot.a { left: 40px; top: 72px; }
-    .map-dot.b { left: 210px; top: 123px; }
-    .map-dot.c { left: 270px; top: 48px; }
 
     .floating-window {
       position: fixed;
@@ -462,28 +411,6 @@
 
     .floating-top span {
       justify-self: center;
-    }
-
-    .close {
-      justify-self: end;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      border: 0;
-      background: rgba(143, 95, 95, 0.88);
-      color: #fff;
-      font-size: 24px;
-      line-height: 1;
-      cursor: pointer;
-      transition: 0.18s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .close:hover {
-      background: #ff5f57;
-      transform: scale(1.06);
     }
 
     .floating-content {
@@ -594,36 +521,32 @@
       }
     }
 
-    @media (max-width: 1080px) {
-      body {
-        overflow: auto;
-      }
-
+    @media (max-width: 1180px) {
       .stage {
-        min-height: auto;
         grid-template-columns: 1fr;
-        padding-top: 54px;
-        gap: 54px;
+        gap: 48px;
       }
 
       .visual-area {
-        min-height: 620px;
+        min-height: 540px;
       }
 
       .profile-window {
-        right: 0;
+        right: auto;
+        left: 0;
       }
 
-      .map-window {
-        left: 0;
+      .main-buttons {
+        overflow-x: auto;
+        padding-bottom: 8px;
+      }
+
+      .main-button {
+        min-width: 150px;
       }
     }
 
     @media (max-width: 680px) {
-      body {
-        overflow: auto;
-      }
-
       .desktop {
         width: min(100% - 22px, 1360px);
         padding-top: 14px;
@@ -643,12 +566,20 @@
       }
 
       .main-buttons {
-        grid-template-columns: 1fr;
+        display: flex;
+        overflow-x: auto;
+        gap: 12px;
         margin-top: 36px;
       }
 
       .main-button {
-        min-height: 88px;
+        min-width: 136px;
+        min-height: 92px;
+        border-radius: 24px;
+      }
+
+      .main-button-title {
+        font-size: 19px;
       }
 
       .visual-area {
@@ -663,13 +594,8 @@
         height: auto;
       }
 
-      .profile-window,
-      .map-window {
+      .profile-window {
         width: 100%;
-      }
-
-      .map-window {
-        display: none;
       }
 
       .floating-window {
@@ -743,7 +669,6 @@
       </section>
 
       <section class="visual-area">
-
         <article class="glass-window profile-window">
           <div class="window-bar">
             <div class="dots">
@@ -770,32 +695,12 @@
             </div>
           </div>
         </article>
-
-        <article class="glass-window map-window">
-          <div class="window-bar">
-            <div class="dots">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <span>route.map</span>
-          </div>
-
-          <div class="map-body">
-            <div class="map-line one"></div>
-            <div class="map-line two"></div>
-            <div class="map-dot a"></div>
-            <div class="map-dot b"></div>
-            <div class="map-dot c"></div>
-          </div>
-        </article>
-
       </section>
 
     </main>
   </div>
 
-  <div class="floating-window" id="window-work" style="left: 11%; top: 17%;">
+  <div class="floating-window" id="window-work" data-page="work.html" style="left: 11%; top: 17%;">
     <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
@@ -803,7 +708,7 @@
         <span class="dot green"></span>
       </div>
       <span>work.html</span>
-      <button class="close" data-close="work">×</button>
+      <div></div>
     </div>
 
     <div class="floating-content">
@@ -821,7 +726,7 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-notes" style="left: 21%; top: 23%;">
+  <div class="floating-window" id="window-notes" data-page="notes.html" style="left: 21%; top: 23%;">
     <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
@@ -829,7 +734,7 @@
         <span class="dot green"></span>
       </div>
       <span>notes.html</span>
-      <button class="close" data-close="notes">×</button>
+      <div></div>
     </div>
 
     <div class="floating-content">
@@ -847,7 +752,7 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-about" style="left: 31%; top: 19%;">
+  <div class="floating-window" id="window-about" data-page="about.html" style="left: 31%; top: 19%;">
     <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
@@ -855,7 +760,7 @@
         <span class="dot green"></span>
       </div>
       <span>about.html</span>
-      <button class="close" data-close="about">×</button>
+      <div></div>
     </div>
 
     <div class="floating-content">
@@ -873,7 +778,7 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-travel" style="left: 40%; top: 27%;">
+  <div class="floating-window" id="window-travel" data-page="travel.html" style="left: 40%; top: 27%;">
     <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
@@ -881,7 +786,7 @@
         <span class="dot green"></span>
       </div>
       <span>travel.html</span>
-      <button class="close" data-close="travel">×</button>
+      <div></div>
     </div>
 
     <div class="floating-content">
@@ -899,7 +804,7 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-contacts" style="left: 49%; top: 21%;">
+  <div class="floating-window" id="window-contacts" data-page="contacts.html" style="left: 49%; top: 21%;">
     <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
@@ -907,7 +812,7 @@
         <span class="dot green"></span>
       </div>
       <span>contacts.html</span>
-      <button class="close" data-close="contacts">×</button>
+      <div></div>
     </div>
 
     <div class="floating-content">
@@ -941,10 +846,9 @@
       });
     });
 
-    document.querySelectorAll('[data-close]').forEach(button => {
-      button.addEventListener('click', () => {
-        const id = button.dataset.close;
-        const windowEl = document.getElementById(`window-${id}`);
+    document.querySelectorAll('.floating-window .dot.yellow').forEach(yellowDot => {
+      yellowDot.addEventListener('click', () => {
+        const windowEl = yellowDot.closest('.floating-window');
 
         if (!windowEl) return;
 
@@ -952,13 +856,17 @@
       });
     });
 
-    document.querySelectorAll('.floating-window .dot.red').forEach(redDot => {
-      redDot.addEventListener('click', () => {
-        const windowEl = redDot.closest('.floating-window');
+    document.querySelectorAll('.floating-window .dot.green').forEach(greenDot => {
+      greenDot.addEventListener('click', () => {
+        const windowEl = greenDot.closest('.floating-window');
 
         if (!windowEl) return;
 
-        windowEl.classList.remove('active');
+        const page = windowEl.dataset.page;
+
+        if (page) {
+          window.location.href = page;
+        }
       });
     });
 
@@ -979,7 +887,7 @@
       });
 
       function startDrag(e) {
-        if (e.target.classList.contains('close') || e.target.classList.contains('dot')) return;
+        if (e.target.classList.contains('dot')) return;
 
         isDragging = true;
         startX = e.clientX;
@@ -992,7 +900,7 @@
       }
 
       function startDragTouch(e) {
-        if (e.target.classList.contains('close') || e.target.classList.contains('dot')) return;
+        if (e.target.classList.contains('dot')) return;
 
         e.preventDefault();
 
