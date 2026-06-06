@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Артур Виноградов — Danamil</title>
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
     * {
       box-sizing: border-box;
     }
 
     :root {
-      --bg: #090909;
-      --bg-soft: #111111;
-      --panel: #151515;
-      --panel-2: #1b1b1b;
-      --text: #f2f2f2;
-      --muted: #9a9a9a;
-      --muted-2: #666666;
-      --line: #2b2b2b;
-      --accent: #d8ff3e;
-      --accent-2: #ffffff;
-      --radius: 28px;
+      --bg: #08090b;
+      --panel: rgba(22, 24, 29, 0.82);
+      --panel-solid: #16181d;
+      --panel-light: #20232b;
+      --text: #f4f0e8;
+      --muted: #9b998f;
+      --muted-2: #666a73;
+      --line: rgba(255, 255, 255, 0.12);
+      --accent: #b8ff4d;
+      --accent-blue: #9db7ff;
+      --accent-red: #ff6b6b;
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
+      --radius: 24px;
     }
 
     html {
@@ -31,12 +35,13 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(216, 255, 62, 0.08), transparent 28%),
-        radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.06), transparent 24%),
-        linear-gradient(135deg, #050505, #101010 55%, #070707);
+      font-family: Inter, Arial, sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at 12% 14%, rgba(184, 255, 77, 0.16), transparent 26%),
+        radial-gradient(circle at 86% 20%, rgba(157, 183, 255, 0.13), transparent 28%),
+        radial-gradient(circle at 62% 82%, rgba(255, 107, 107, 0.10), transparent 30%),
+        linear-gradient(135deg, #050608 0%, #11131a 52%, #07080b 100%);
       overflow-x: hidden;
     }
 
@@ -46,20 +51,22 @@
       inset: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 80%);
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent 85%);
+      opacity: 0.55;
     }
 
     a {
       color: inherit;
     }
 
-    .page {
-      width: min(1180px, calc(100% - 40px));
+    .desktop {
+      min-height: 100vh;
+      width: min(1280px, calc(100% - 34px));
       margin: 0 auto;
-      padding: 34px 0 46px;
+      padding: 28px 0 34px;
       position: relative;
     }
 
@@ -67,68 +74,59 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 34px;
+      margin-bottom: 42px;
       color: var(--muted);
       font-size: 14px;
-      letter-spacing: 0.02em;
-      animation: appear 0.7s ease both;
+      animation: fadeDown 0.7s ease both;
     }
 
     .brand {
       display: flex;
-      align-items: center;
       gap: 10px;
+      align-items: center;
       color: var(--text);
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
-    .brand-mark {
-      width: 12px;
-      height: 12px;
-      background: var(--accent);
+    .brand-dot {
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      box-shadow: 0 0 28px rgba(216, 255, 62, 0.65);
+      background: var(--accent);
+      box-shadow: 0 0 28px rgba(184, 255, 77, 0.7);
     }
 
-    .top-links {
-      display: flex;
-      gap: 18px;
-    }
-
-    .top-links a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: 0.2s ease;
-    }
-
-    .top-links a:hover {
-      color: var(--text);
+    .top-note {
+      border: 1px solid var(--line);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(14px);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.08fr 0.92fr;
       gap: 26px;
       align-items: stretch;
     }
 
-    .window {
-      position: relative;
+    .intro {
+      min-height: 680px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 34px;
       background:
-        linear-gradient(145deg, rgba(255,255,255,0.08), transparent 38%),
-        rgba(18,18,18,0.92);
-      box-shadow:
-        0 30px 80px rgba(0,0,0,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+        linear-gradient(145deg, rgba(255,255,255,0.10), transparent 34%),
+        rgba(13, 15, 19, 0.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
       overflow: hidden;
-      backdrop-filter: blur(16px);
       animation: lift 0.75s ease both;
     }
 
-    .window-head {
-      height: 52px;
+    .intro-head {
+      height: 54px;
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
@@ -136,7 +134,7 @@
       padding: 0 18px;
       color: var(--muted-2);
       font-size: 13px;
-      background: rgba(255,255,255,0.025);
+      background: rgba(255,255,255,0.035);
     }
 
     .dots {
@@ -148,163 +146,151 @@
       width: 11px;
       height: 11px;
       border-radius: 50%;
-      background: #333;
-      border: 1px solid #444;
+      background: #343741;
+      border: 1px solid rgba(255,255,255,0.13);
     }
 
-    .dot:nth-child(1) { background: #ff5f57; }
-    .dot:nth-child(2) { background: #ffbd2e; }
-    .dot:nth-child(3) { background: #28c840; }
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #28c840; }
 
-    .hero-main {
-      min-height: 670px;
+    .intro-body {
+      padding: 58px 56px 44px;
     }
 
-    .hero-content {
-      padding: 58px 56px 50px;
-    }
-
-    .eyebrow {
+    .kicker {
       color: var(--accent);
-      font-size: 14px;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 26px;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+      margin-bottom: 28px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(54px, 7vw, 98px);
-      line-height: 0.91;
-      letter-spacing: -0.075em;
+      font-size: clamp(58px, 7vw, 106px);
+      line-height: 0.88;
+      letter-spacing: -0.085em;
       font-weight: 900;
     }
 
     .lead {
       margin: 34px 0 0;
-      max-width: 660px;
-      font-size: clamp(24px, 2.5vw, 36px);
-      line-height: 1.13;
+      max-width: 680px;
+      font-size: clamp(24px, 2.45vw, 36px);
+      line-height: 1.12;
       letter-spacing: -0.045em;
       color: var(--text);
     }
 
-    .description {
-      margin: 24px 0 42px;
-      max-width: 560px;
-      font-size: 18px;
-      line-height: 1.55;
+    .desc {
+      max-width: 570px;
+      margin: 24px 0 38px;
       color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
     }
 
-    .buttons {
+    .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 42px;
     }
 
-    .button {
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 14px 18px;
+      min-height: 48px;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
+      gap: 9px;
+      background: rgba(255,255,255,0.045);
       color: var(--text);
-      transition: 0.22s ease;
-    }
-
-    .button.primary {
-      background: var(--accent);
-      color: #080808;
-      border-color: var(--accent);
-      font-weight: 800;
-    }
-
-    .button:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.35);
-      box-shadow: 0 18px 38px rgba(0,0,0,0.34);
-    }
-
-    .button.primary:hover {
-      box-shadow: 0 18px 45px rgba(216,255,62,0.14);
-    }
-
-    .directory {
-      display: grid;
-      gap: 10px;
-    }
-
-    .dir-link {
-      display: grid;
-      grid-template-columns: 54px 1fr auto;
-      align-items: center;
-      gap: 16px;
-      min-height: 70px;
-      padding: 0 18px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255,255,255,0.025);
       text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.34);
+      background: rgba(255,255,255,0.075);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.32);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #08090b;
+      border-color: var(--accent);
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 18px 55px rgba(184,255,77,0.16);
+    }
+
+    .dock-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .app {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 16px 14px;
+      min-height: 108px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.075), transparent),
+        rgba(255,255,255,0.035);
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
       transition: 0.22s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .dir-link::before {
+    .app::after {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(216,255,62,0.12), transparent 55%);
-      transform: translateX(-100%);
-      transition: 0.32s ease;
+      inset: auto -20px -40px auto;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(184,255,77,0.10);
+      transition: 0.25s ease;
     }
 
-    .dir-link:hover {
-      transform: translateX(6px);
-      border-color: rgba(216,255,62,0.5);
-      background: rgba(255,255,255,0.045);
+    .app:hover {
+      transform: translateY(-5px);
+      border-color: rgba(184,255,77,0.45);
+      background: rgba(255,255,255,0.065);
     }
 
-    .dir-link:hover::before {
-      transform: translateX(0);
+    .app:hover::after {
+      transform: scale(1.3);
+      background: rgba(184,255,77,0.16);
     }
 
-    .dir-link > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .num {
+    .app-num {
+      display: block;
       color: var(--accent);
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 23px;
       letter-spacing: 0.08em;
     }
 
-    .dir-title {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .dir-meta {
-      color: var(--muted-2);
-      font-size: 14px;
-    }
-
-    .arrow {
-      color: var(--muted);
-      transition: 0.2s ease;
-    }
-
-    .dir-link:hover .arrow {
-      color: var(--accent);
-      transform: translateX(4px);
+    .app-title {
+      display: block;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
     }
 
     .side {
@@ -312,21 +298,30 @@
       gap: 26px;
     }
 
-    .profile-window {
-      min-height: 440px;
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.10), transparent 42%),
+        rgba(13, 15, 19, 0.76);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      animation: lift 0.85s ease both;
     }
 
-    .profile-content {
+    .panel-body {
       padding: 24px;
     }
 
     .photo {
-      height: 270px;
-      border-radius: 22px;
+      height: 295px;
+      border-radius: 25px;
       border: 1px dashed rgba(255,255,255,0.22);
       background:
-        radial-gradient(circle at 35% 20%, rgba(216,255,62,0.12), transparent 32%),
-        linear-gradient(145deg, #222, #0d0d0d);
+        radial-gradient(circle at 28% 20%, rgba(157,183,255,0.15), transparent 33%),
+        radial-gradient(circle at 78% 74%, rgba(184,255,77,0.11), transparent 32%),
+        linear-gradient(145deg, #252a34, #0d0f13);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -336,21 +331,30 @@
       overflow: hidden;
     }
 
+    .photo::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      transform: rotate(20deg);
+    }
+
     .photo::after {
       content: "";
       position: absolute;
-      width: 180px;
-      height: 180px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 50%;
-      transform: rotate(18deg);
+      width: 260px;
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      transform: rotate(-24deg);
     }
 
-    .profile-text {
+    .panel-text {
       color: var(--muted);
-      margin: 22px 0 0;
       font-size: 16px;
       line-height: 1.55;
+      margin: 22px 0 0;
     }
 
     .tags {
@@ -361,39 +365,41 @@
     }
 
     .tag {
-      padding: 7px 10px;
-      border: 1px solid var(--line);
+      padding: 8px 10px;
       border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
       color: var(--text);
-      font-size: 13px;
-      background: rgba(255,255,255,0.035);
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .mini-window {
+    .status-panel {
       padding: 24px;
-      min-height: 204px;
+      min-height: 210px;
     }
 
-    .mini-title {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+    .status-title {
       color: var(--muted-2);
-      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 22px;
     }
 
-    .now {
+    .status-list {
       display: grid;
-      gap: 12px;
+      gap: 13px;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 15px;
+      line-height: 1.45;
     }
 
-    .now-row {
+    .status-item {
       display: grid;
       grid-template-columns: 18px 1fr;
       gap: 10px;
-      align-items: start;
     }
 
     .plus {
@@ -401,20 +407,118 @@
       font-weight: 900;
     }
 
+    .floating-window {
+      position: fixed;
+      width: min(520px, calc(100vw - 28px));
+      border: 1px solid rgba(255,255,255,0.17);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.10), transparent 38%),
+        rgba(18, 20, 25, 0.94);
+      box-shadow: 0 30px 110px rgba(0,0,0,0.62);
+      backdrop-filter: blur(22px);
+      z-index: 10;
+      overflow: hidden;
+      display: none;
+      animation: windowIn 0.22s ease both;
+    }
+
+    .floating-window.active {
+      display: block;
+    }
+
+    .window-top {
+      height: 52px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      color: var(--muted-2);
+      font-size: 13px;
+      cursor: grab;
+      user-select: none;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .window-top:active {
+      cursor: grabbing;
+    }
+
+    .close {
+      border: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .close:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    .window-content {
+      padding: 26px;
+    }
+
+    .window-label {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .window-content h2 {
+      margin: 0 0 16px;
+      font-size: 38px;
+      letter-spacing: -0.06em;
+      line-height: 1;
+    }
+
+    .window-content p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 22px;
+    }
+
+    .window-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 0 15px;
+      border-radius: 999px;
+      background: var(--text);
+      color: #09090b;
+      text-decoration: none;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .window-link:hover {
+      transform: translateY(-2px);
+      background: var(--accent);
+    }
+
     footer {
-      margin-top: 28px;
       display: flex;
       justify-content: space-between;
       gap: 18px;
+      margin-top: 28px;
       color: var(--muted-2);
       font-size: 14px;
-      animation: appear 0.9s ease both;
+      animation: fadeUp 0.9s ease both;
     }
 
     footer a {
       color: var(--muted);
       text-decoration: none;
-      transition: 0.2s ease;
     }
 
     footer a:hover {
@@ -432,7 +536,7 @@
       }
     }
 
-    @keyframes appear {
+    @keyframes fadeDown {
       from {
         opacity: 0;
         transform: translateY(-8px);
@@ -443,106 +547,120 @@
       }
     }
 
-    @media (max-width: 950px) {
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes windowIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @media (max-width: 980px) {
       .hero {
         grid-template-columns: 1fr;
       }
 
-      .hero-main {
+      .intro {
         min-height: auto;
       }
 
-      .hero-content {
+      .dock-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .intro-body {
         padding: 42px 26px 34px;
       }
+    }
 
-      .top-links {
+    @media (max-width: 560px) {
+      .desktop {
+        width: min(100% - 22px, 1280px);
+        padding-top: 16px;
+      }
+
+      .top-note {
         display: none;
       }
 
-      .dir-link {
-        grid-template-columns: 44px 1fr;
+      h1 {
+        font-size: 54px;
+        letter-spacing: -0.065em;
       }
 
-      .dir-meta {
-        display: none;
+      .lead {
+        font-size: 22px;
       }
 
-      .arrow {
-        display: none;
+      .desc {
+        font-size: 16px;
+      }
+
+      .dock-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .floating-window {
+        left: 14px !important;
+        top: 90px !important;
       }
 
       footer {
         flex-direction: column;
       }
     }
-
-    @media (max-width: 520px) {
-      .page {
-        width: min(100% - 24px, 1180px);
-        padding-top: 18px;
-      }
-
-      .window {
-        border-radius: 22px;
-      }
-
-      h1 {
-        font-size: 52px;
-        letter-spacing: -0.055em;
-      }
-
-      .lead {
-        font-size: 23px;
-      }
-
-      .description {
-        font-size: 16px;
-      }
-
-      .buttons {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-      }
-    }
   </style>
 </head>
 
 <body>
-  <div class="page">
+  <div class="desktop">
 
     <header class="topbar">
       <div class="brand">
-        <span class="brand-mark"></span>
+        <span class="brand-dot"></span>
         <span>danamil.ru</span>
       </div>
 
-      <nav class="top-links">
-        <a href="work.html">work</a>
-        <a href="notes.html">notes</a>
-        <a href="about.html">about</a>
-        <a href="travel.html">travel</a>
-        <a href="contacts.html">contacts</a>
-      </nav>
+      <div class="top-note">personal marketing desktop</div>
     </header>
 
     <main class="hero">
 
-      <section class="window hero-main">
-        <div class="window-head">
+      <section class="intro">
+        <div class="intro-head">
           <div class="dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
           </div>
-          <span>main / personal marketing system</span>
+          <span>main / identity</span>
         </div>
 
-        <div class="hero-content">
-          <div class="eyebrow">personal site</div>
+        <div class="intro-body">
+          <div class="kicker">personal site</div>
 
           <h1>Артур<br>Виноградов.</h1>
 
@@ -550,75 +668,63 @@
             Danamil. RANEPA. Маркетинг, брендинг, медиа, стратегии.
           </p>
 
-          <p class="description">
+          <p class="desc">
             Начинающий маркетолог. Изучаю бренды, коммуникации и цифровую среду.
             Собираю здесь работу, заметки, поездки и личные проекты.
           </p>
 
-          <div class="buttons">
-            <a class="button primary" href="contacts.html">Связаться</a>
-            <a class="button" href="work.html">Смотреть работу</a>
+          <div class="actions">
+            <button class="btn primary" data-open="contacts">Связаться</button>
+            <button class="btn" data-open="work">Открыть работу</button>
+            <button class="btn" data-open="notes">Заметки</button>
           </div>
 
-          <nav class="directory">
-            <a class="dir-link" href="work.html">
-              <span class="num">01</span>
-              <span class="dir-title">Работа</span>
-              <span class="dir-meta">projects / cases</span>
-              <span class="arrow">→</span>
-            </a>
+          <div class="dock-grid">
+            <button class="app" data-open="work">
+              <span class="app-num">01</span>
+              <span class="app-title">Работа</span>
+            </button>
 
-            <a class="dir-link" href="notes.html">
-              <span class="num">02</span>
-              <span class="dir-title">Заметки</span>
-              <span class="dir-meta">media / thoughts</span>
-              <span class="arrow">→</span>
-            </a>
+            <button class="app" data-open="notes">
+              <span class="app-num">02</span>
+              <span class="app-title">Заметки</span>
+            </button>
 
-            <a class="dir-link" href="about.html">
-              <span class="num">03</span>
-              <span class="dir-title">Обо мне</span>
-              <span class="dir-meta">bio / background</span>
-              <span class="arrow">→</span>
-            </a>
+            <button class="app" data-open="about">
+              <span class="app-num">03</span>
+              <span class="app-title">Обо мне</span>
+            </button>
 
-            <a class="dir-link" href="travel.html">
-              <span class="num">04</span>
-              <span class="dir-title">Путешествия</span>
-              <span class="dir-meta">places / routes</span>
-              <span class="arrow">→</span>
-            </a>
+            <button class="app" data-open="travel">
+              <span class="app-num">04</span>
+              <span class="app-title">Путешествия</span>
+            </button>
 
-            <a class="dir-link" href="contacts.html">
-              <span class="num">05</span>
-              <span class="dir-title">Контакты</span>
-              <span class="dir-meta">telegram / email</span>
-              <span class="arrow">→</span>
-            </a>
-          </nav>
+            <button class="app" data-open="contacts">
+              <span class="app-num">05</span>
+              <span class="app-title">Контакты</span>
+            </button>
+          </div>
         </div>
       </section>
 
       <aside class="side">
-
-        <section class="window profile-window">
-          <div class="window-head">
+        <section class="panel">
+          <div class="intro-head">
             <div class="dots">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
             </div>
             <span>profile card</span>
           </div>
 
-          <div class="profile-content">
-            <div class="photo">
-              место для фото
-            </div>
+          <div class="panel-body">
+            <div class="photo">место для фото</div>
 
-            <p class="profile-text">
+            <p class="panel-text">
               Первая версия личной страницы. Позже здесь появятся фото,
-              кейсы, тексты и нормальное портфолио.
+              кейсы, тексты, резюме и нормальная структура портфолио.
             </p>
 
             <div class="tags">
@@ -630,37 +736,261 @@
           </div>
         </section>
 
-        <section class="window mini-window">
-          <div class="mini-title">сейчас</div>
+        <section class="panel status-panel">
+          <div class="status-title">сейчас</div>
 
-          <div class="now">
-            <div class="now-row">
+          <div class="status-list">
+            <div class="status-item">
               <span class="plus">+</span>
               <span>собираю личный сайт и структуру портфолио</span>
             </div>
 
-            <div class="now-row">
+            <div class="status-item">
               <span class="plus">+</span>
               <span>изучаю маркетинг, бренды и коммуникации</span>
             </div>
 
-            <div class="now-row">
+            <div class="status-item">
               <span class="plus">+</span>
               <span>учусь превращать опыт в понятные кейсы</span>
             </div>
           </div>
         </section>
-
       </aside>
+
     </main>
 
     <footer>
       <div>© 2026 Danamil</div>
-      <div>
-        <a href="https://t.me/danamil">Telegram</a>
-      </div>
+      <div><a href="https://t.me/danamil">Telegram</a></div>
     </footer>
 
   </div>
+
+  <div class="floating-window" id="window-work" style="left: 9%; top: 16%;">
+    <div class="window-top">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span>work.html</span>
+      <button class="close" data-close="work">×</button>
+    </div>
+
+    <div class="window-content">
+      <div class="window-label">01 / work</div>
+      <h2>Работа</h2>
+      <p>
+        Проекты, опыт, кейсы и рабочие заметки. Здесь позже будут Strike Force,
+        email-маркетинг, выставки, презентации и другие задачи.
+      </p>
+      <a class="window-link" href="work.html">Перейти на страницу →</a>
+    </div>
+  </div>
+
+  <div class="floating-window" id="window-notes" style="left: 18%; top: 24%;">
+    <div class="window-top">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span>notes.html</span>
+      <button class="close" data-close="notes">×</button>
+    </div>
+
+    <div class="window-content">
+      <div class="window-label">02 / notes</div>
+      <h2>Заметки</h2>
+      <p>
+        Мысли о маркетинге, медиа, учебе, поездках и проектах. Короткие тексты,
+        которые постепенно будут собирать мой взгляд.
+      </p>
+      <a class="window-link" href="notes.html">Перейти на страницу →</a>
+    </div>
+  </div>
+
+  <div class="floating-window" id="window-about" style="left: 27%; top: 18%;">
+    <div class="window-top">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span>about.html</span>
+      <button class="close" data-close="about">×</button>
+    </div>
+
+    <div class="window-content">
+      <div class="window-label">03 / about</div>
+      <h2>Обо мне</h2>
+      <p>
+        Артур Виноградов. Danamil. RANEPA. Маркетинг, брендинг,
+        медиа и стратегии. Здесь будет более цельный текст обо мне.
+      </p>
+      <a class="window-link" href="about.html">Перейти на страницу →</a>
+    </div>
+  </div>
+
+  <div class="floating-window" id="window-travel" style="left: 36%; top: 26%;">
+    <div class="window-top">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span>travel.html</span>
+      <button class="close" data-close="travel">×</button>
+    </div>
+
+    <div class="window-content">
+      <div class="window-label">04 / travel</div>
+      <h2>Путешествия</h2>
+      <p>
+        Места, маршруты, наблюдения и личные впечатления. Раздел под поездки,
+        города, страны и заметки с дороги.
+      </p>
+      <a class="window-link" href="travel.html">Перейти на страницу →</a>
+    </div>
+  </div>
+
+  <div class="floating-window" id="window-contacts" style="left: 45%; top: 20%;">
+    <div class="window-top">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span>contacts.html</span>
+      <button class="close" data-close="contacts">×</button>
+    </div>
+
+    <div class="window-content">
+      <div class="window-label">05 / contacts</div>
+      <h2>Контакты</h2>
+      <p>
+        Самый быстрый способ связаться — Telegram. Почту и резюме можно будет
+        добавить позже.
+      </p>
+      <a class="window-link" href="contacts.html">Перейти на страницу →</a>
+    </div>
+  </div>
+
+  <script>
+    const windows = document.querySelectorAll('.floating-window');
+    let topZ = 20;
+
+    document.querySelectorAll('[data-open]').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.open;
+        const windowEl = document.getElementById(`window-${id}`);
+
+        if (!windowEl) return;
+
+        windowEl.classList.add('active');
+        windowEl.style.zIndex = ++topZ;
+      });
+    });
+
+    document.querySelectorAll('[data-close]').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.close;
+        const windowEl = document.getElementById(`window-${id}`);
+
+        if (!windowEl) return;
+
+        windowEl.classList.remove('active');
+      });
+    });
+
+    windows.forEach(windowEl => {
+      const header = windowEl.querySelector('.window-top');
+
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let startLeft = 0;
+      let startTop = 0;
+
+      header.addEventListener('mousedown', startDrag);
+      header.addEventListener('touchstart', startDragTouch, { passive: false });
+
+      windowEl.addEventListener('mousedown', () => {
+        windowEl.style.zIndex = ++topZ;
+      });
+
+      function startDrag(e) {
+        if (e.target.classList.contains('close')) return;
+
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = windowEl.offsetLeft;
+        startTop = windowEl.offsetTop;
+
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', stopDrag);
+      }
+
+      function startDragTouch(e) {
+        if (e.target.classList.contains('close')) return;
+
+        e.preventDefault();
+
+        isDragging = true;
+        const touch = e.touches[0];
+
+        startX = touch.clientX;
+        startY = touch.clientY;
+        startLeft = windowEl.offsetLeft;
+        startTop = windowEl.offsetTop;
+
+        document.addEventListener('touchmove', dragTouch, { passive: false });
+        document.addEventListener('touchend', stopDragTouch);
+      }
+
+      function drag(e) {
+        if (!isDragging) return;
+
+        const nextLeft = startLeft + e.clientX - startX;
+        const nextTop = startTop + e.clientY - startY;
+
+        moveWindow(nextLeft, nextTop);
+      }
+
+      function dragTouch(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const touch = e.touches[0];
+
+        const nextLeft = startLeft + touch.clientX - startX;
+        const nextTop = startTop + touch.clientY - startY;
+
+        moveWindow(nextLeft, nextTop);
+      }
+
+      function moveWindow(left, top) {
+        const maxLeft = window.innerWidth - windowEl.offsetWidth - 10;
+        const maxTop = window.innerHeight - 70;
+
+        windowEl.style.left = `${Math.max(10, Math.min(left, maxLeft))}px`;
+        windowEl.style.top = `${Math.max(10, Math.min(top, maxTop))}px`;
+      }
+
+      function stopDrag() {
+        isDragging = false;
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('mouseup', stopDrag);
+      }
+
+      function stopDragTouch() {
+        isDragging = false;
+        document.removeEventListener('touchmove', dragTouch);
+        document.removeEventListener('touchend', stopDragTouch);
+      }
+    });
+  </script>
 </body>
 </html>
