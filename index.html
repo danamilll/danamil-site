@@ -6,26 +6,29 @@
   <title>Артур Виноградов — Danamil</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
     * {
       box-sizing: border-box;
     }
 
     :root {
-      --bg: #08090b;
-      --text: #f1eee7;
-      --muted: #a19c92;
-      --muted-2: #6f727a;
-      --line: rgba(255, 255, 255, 0.12);
-      --panel: rgba(15, 17, 22, 0.78);
-      --panel-2: rgba(24, 27, 34, 0.72);
-      --accent: #b8ff4d;
-      --accent-soft: rgba(184, 255, 77, 0.12);
-      --blue: #8da2ff;
-      --red: #ff6b5f;
-      --shadow: 0 32px 120px rgba(0, 0, 0, 0.58);
-      --radius: 30px;
+      --bg: #07080a;
+      --surface: rgba(18, 20, 25, 0.72);
+      --surface-strong: rgba(25, 28, 35, 0.88);
+      --surface-soft: rgba(255, 255, 255, 0.045);
+      --text: #f4efe6;
+      --muted: #a5a096;
+      --muted-dark: #6d7078;
+      --line: rgba(255, 255, 255, 0.13);
+
+      --brass: #c4a46a;
+      --blue: #7d8fb8;
+      --olive: #79836a;
+      --wine: #8f5f5f;
+
+      --shadow: 0 35px 120px rgba(0, 0, 0, 0.62);
+      --radius: 28px;
     }
 
     html {
@@ -35,14 +38,14 @@
     body {
       margin: 0;
       min-height: 100vh;
+      overflow: hidden;
       font-family: Manrope, Arial, sans-serif;
       color: var(--text);
-      overflow-x: hidden;
       background:
-        radial-gradient(circle at 13% 15%, rgba(184, 255, 77, 0.17), transparent 27%),
-        radial-gradient(circle at 84% 12%, rgba(141, 162, 255, 0.14), transparent 27%),
-        radial-gradient(circle at 72% 84%, rgba(255, 107, 95, 0.09), transparent 30%),
-        linear-gradient(135deg, #07080b, #13161d 52%, #08090c);
+        radial-gradient(circle at 14% 18%, rgba(196, 164, 106, 0.22), transparent 28%),
+        radial-gradient(circle at 86% 16%, rgba(125, 143, 184, 0.16), transparent 26%),
+        radial-gradient(circle at 70% 86%, rgba(143, 95, 95, 0.13), transparent 31%),
+        linear-gradient(135deg, #050608, #12151c 54%, #07080a);
     }
 
     body::before {
@@ -51,9 +54,9 @@
       inset: 0;
       pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.026) 1px, transparent 1px);
-      background-size: 48px 48px;
+        linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 46px 46px;
       opacity: 0.62;
       mask-image: linear-gradient(to bottom, #000, transparent 86%);
     }
@@ -63,7 +66,9 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, transparent 52%, rgba(0,0,0,0.48));
+      background:
+        radial-gradient(circle at center, transparent 46%, rgba(0,0,0,0.54)),
+        linear-gradient(to bottom, rgba(255,255,255,0.04), transparent 18%);
     }
 
     a {
@@ -75,25 +80,25 @@
     }
 
     .desktop {
-      min-height: 100vh;
-      width: min(1320px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 24px 0 112px;
       position: relative;
       z-index: 1;
+      width: min(1360px, calc(100% - 34px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px 0 112px;
     }
 
-    .menu-bar {
+    .menubar {
       height: 46px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(15, 17, 22, 0.58);
+      background: rgba(12, 14, 18, 0.56);
       backdrop-filter: blur(22px);
+      box-shadow: 0 18px 70px rgba(0,0,0,0.28);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px 0 18px;
-      box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+      padding: 0 16px;
       animation: fadeDown 0.7s ease both;
     }
 
@@ -101,55 +106,166 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--text);
+      font-size: 14px;
       font-weight: 800;
       letter-spacing: -0.03em;
-      font-size: 14px;
     }
 
     .brand-dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 28px rgba(184, 255, 77, 0.74);
+      background: var(--brass);
+      box-shadow: 0 0 30px rgba(196, 164, 106, 0.72);
     }
 
-    .menu-note {
+    .menubar-center {
       color: var(--muted);
       font-size: 13px;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 26px;
-      align-items: stretch;
-      margin-top: 30px;
+    .menubar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
     }
 
-    .window {
+    .stage {
+      height: calc(100vh - 180px);
+      min-height: 560px;
+      display: grid;
+      grid-template-columns: 0.98fr 1.02fr;
+      gap: 28px;
+      align-items: center;
+      padding-top: 28px;
+    }
+
+    .hero-copy {
+      animation: rise 0.8s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--brass);
+      font-family: "IBM Plex Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 26px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: var(--brass);
+      opacity: 0.75;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(58px, 7vw, 112px);
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+      font-weight: 800;
+    }
+
+    .lead {
+      margin: 30px 0 0;
+      max-width: 650px;
+      color: var(--text);
+      font-size: clamp(22px, 2.35vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      font-weight: 500;
+    }
+
+    .desc {
+      margin: 24px 0 36px;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.62;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.045);
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.075);
+      border-color: rgba(255,255,255,0.32);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.32);
+    }
+
+    .btn.primary {
+      background: var(--text);
+      color: #090a0d;
+      border-color: var(--text);
+    }
+
+    .btn.primary:hover {
+      background: var(--brass);
+      border-color: var(--brass);
+      box-shadow: 0 18px 48px rgba(196,164,106,0.16);
+    }
+
+    .visual-area {
+      position: relative;
+      height: 620px;
+      animation: rise 0.9s ease both;
+    }
+
+    .glass-window {
+      position: absolute;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background:
-        linear-gradient(145deg, rgba(255,255,255,0.10), transparent 36%),
-        var(--panel);
+        linear-gradient(145deg, rgba(255,255,255,0.10), transparent 38%),
+        var(--surface);
+      backdrop-filter: blur(24px);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(22px);
       overflow: hidden;
-      animation: lift 0.75s ease both;
     }
 
-    .window-head {
-      height: 54px;
+    .window-bar {
+      height: 50px;
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 18px;
-      color: var(--muted-2);
-      font-size: 13px;
-      background: rgba(255,255,255,0.035);
+      padding: 0 16px;
+      background: rgba(255,255,255,0.032);
+      color: var(--muted-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
       user-select: none;
     }
 
@@ -163,7 +279,7 @@
       width: 11px;
       height: 11px;
       border-radius: 50%;
-      background: #343741;
+      background: #30343d;
       border: 1px solid rgba(255,255,255,0.14);
     }
 
@@ -171,207 +287,59 @@
     .dot.yellow { background: #ffbd2e; }
     .dot.green { background: #28c840; }
 
-    .intro {
-      min-height: 680px;
-    }
-
-    .intro-body {
-      padding: 58px 56px 44px;
-    }
-
-    .kicker {
-      color: var(--accent);
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: 0.16em;
-      font-weight: 800;
-      margin-bottom: 28px;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: Manrope, Arial, sans-serif;
-      font-size: clamp(54px, 6.2vw, 88px);
-      line-height: 1;
-      letter-spacing: -0.045em;
-      font-weight: 800;
-    }
-
-    .lead {
-      margin: 34px 0 0;
-      max-width: 680px;
-      font-size: clamp(24px, 2.35vw, 34px);
-      line-height: 1.16;
-      letter-spacing: -0.035em;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .desc {
-      max-width: 570px;
-      margin: 24px 0 38px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.6;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 42px;
-    }
-
-    .btn {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 14px 18px;
-      min-height: 48px;
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      background: rgba(255,255,255,0.045);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition:
-        transform 0.22s ease,
-        border-color 0.22s ease,
-        background 0.22s ease,
-        box-shadow 0.22s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.34);
-      background: rgba(255,255,255,0.075);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.32);
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #08090b;
-      border-color: var(--accent);
-    }
-
-    .btn.primary:hover {
-      box-shadow: 0 18px 55px rgba(184,255,77,0.16);
-    }
-
-    .dock-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .app {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 16px 14px;
-      min-height: 108px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.075), transparent),
-        rgba(255,255,255,0.035);
-      cursor: pointer;
-      text-align: left;
-      color: var(--text);
-      transition: 0.22s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .app::after {
-      content: "";
-      position: absolute;
-      inset: auto -20px -40px auto;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      background: var(--accent-soft);
-      transition: 0.25s ease;
-    }
-
-    .app:hover {
-      transform: translateY(-5px);
-      border-color: rgba(184,255,77,0.45);
-      background: rgba(255,255,255,0.065);
-    }
-
-    .app:hover::after {
-      transform: scale(1.3);
-      background: rgba(184,255,77,0.17);
-    }
-
-    .app-num {
-      display: block;
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 900;
-      margin-bottom: 23px;
-      letter-spacing: 0.08em;
-    }
-
-    .app-title {
-      display: block;
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      position: relative;
-      z-index: 1;
-    }
-
-    .side {
-      display: grid;
-      gap: 26px;
+    .profile-window {
+      width: 470px;
+      height: 470px;
+      right: 0;
+      top: 34px;
+      z-index: 2;
     }
 
     .profile-body {
-      padding: 24px;
+      padding: 22px;
     }
 
     .photo {
-      height: 295px;
-      border-radius: 25px;
+      height: 250px;
+      border-radius: 22px;
       border: 1px dashed rgba(255,255,255,0.22);
       background:
-        radial-gradient(circle at 28% 20%, rgba(141,162,255,0.18), transparent 33%),
-        radial-gradient(circle at 78% 74%, rgba(184,255,77,0.12), transparent 32%),
-        linear-gradient(145deg, #252a34, #0d0f13);
+        radial-gradient(circle at 28% 18%, rgba(125,143,184,0.22), transparent 34%),
+        radial-gradient(circle at 78% 76%, rgba(196,164,106,0.16), transparent 32%),
+        linear-gradient(145deg, #242936, #0d0f13);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--muted-2);
-      font-size: 14px;
+      color: var(--muted-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
       position: relative;
       overflow: hidden;
     }
 
     .photo::before {
       content: "";
-      position: absolute;
-      width: 190px;
-      height: 190px;
+      width: 168px;
+      height: 168px;
       border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.08);
-      transform: rotate(20deg);
+      border: 1px solid rgba(255,255,255,0.09);
+      position: absolute;
     }
 
     .photo::after {
       content: "";
-      position: absolute;
-      width: 260px;
+      width: 245px;
       height: 1px;
-      background: rgba(255,255,255,0.10);
-      transform: rotate(-24deg);
+      background: rgba(255,255,255,0.12);
+      position: absolute;
+      transform: rotate(-22deg);
     }
 
-    .panel-text {
+    .profile-text {
+      margin: 20px 0 0;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.55;
-      margin: 22px 0 0;
     }
 
     .tags {
@@ -382,27 +350,34 @@
     }
 
     .tag {
-      padding: 8px 10px;
-      border-radius: 999px;
+      padding: 7px 10px;
       border: 1px solid var(--line);
+      border-radius: 999px;
       background: rgba(255,255,255,0.04);
-      color: var(--text);
       font-size: 12px;
       font-weight: 800;
     }
 
-    .status-panel {
-      padding: 24px;
-      min-height: 210px;
+    .notes-window {
+      width: 410px;
+      min-height: 235px;
+      left: 14px;
+      bottom: 34px;
+      z-index: 3;
     }
 
-    .status-title {
-      color: var(--muted-2);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
+    .notes-body {
+      padding: 22px;
+    }
+
+    .small-title {
+      font-family: "IBM Plex Mono", monospace;
+      color: var(--brass);
       font-size: 12px;
-      font-weight: 900;
-      margin-bottom: 22px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 18px;
+      font-weight: 600;
     }
 
     .status-list {
@@ -420,21 +395,129 @@
     }
 
     .plus {
-      color: var(--accent);
+      color: var(--brass);
       font-weight: 900;
+    }
+
+    .map-window {
+      width: 330px;
+      height: 215px;
+      right: 110px;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0.82;
+    }
+
+    .map-body {
+      height: calc(100% - 50px);
+      padding: 20px;
+      background:
+        linear-gradient(135deg, rgba(196,164,106,0.08), transparent),
+        rgba(255,255,255,0.018);
+      position: relative;
+    }
+
+    .map-line {
+      position: absolute;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+      transform-origin: left;
+    }
+
+    .map-line.one {
+      width: 180px;
+      left: 38px;
+      top: 70px;
+      transform: rotate(18deg);
+    }
+
+    .map-line.two {
+      width: 130px;
+      left: 120px;
+      top: 105px;
+      transform: rotate(-31deg);
+    }
+
+    .map-dot {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--brass);
+      box-shadow: 0 0 20px rgba(196,164,106,0.6);
+    }
+
+    .map-dot.a { left: 36px; top: 66px; }
+    .map-dot.b { left: 196px; top: 115px; }
+    .map-dot.c { left: 245px; top: 40px; }
+
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(14, 16, 20, 0.64);
+      backdrop-filter: blur(24px);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.52);
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .dock-btn {
+      width: 78px;
+      height: 74px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.10), transparent),
+        rgba(255,255,255,0.045);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 11px;
+      text-align: left;
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .dock-btn:hover {
+      transform: translateY(-8px) scale(1.03);
+      border-color: rgba(196,164,106,0.54);
+      background:
+        linear-gradient(145deg, rgba(196,164,106,0.18), transparent),
+        rgba(255,255,255,0.07);
+    }
+
+    .dock-num {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--brass);
+      font-weight: 600;
+    }
+
+    .dock-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
     .floating-window {
       position: fixed;
-      width: min(520px, calc(100vw - 28px));
+      width: min(540px, calc(100vw - 28px));
       border: 1px solid rgba(255,255,255,0.17);
       border-radius: 24px;
       background:
         linear-gradient(145deg, rgba(255,255,255,0.10), transparent 38%),
-        rgba(18, 20, 25, 0.94);
-      box-shadow: 0 30px 110px rgba(0,0,0,0.62);
-      backdrop-filter: blur(22px);
-      z-index: 10;
+        rgba(18, 20, 25, 0.95);
+      box-shadow: 0 30px 110px rgba(0,0,0,0.64);
+      backdrop-filter: blur(24px);
+      z-index: 20;
       overflow: hidden;
       display: none;
       animation: windowIn 0.22s ease both;
@@ -444,79 +527,86 @@
       display: block;
     }
 
-    .window-top {
+    .floating-top {
       height: 52px;
       border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
-      color: var(--muted-2);
-      font-size: 13px;
+      color: var(--muted-dark);
+      background: rgba(255,255,255,0.035);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
       cursor: grab;
       user-select: none;
-      background: rgba(255,255,255,0.035);
     }
 
-    .window-top:active {
+    .floating-top:active {
       cursor: grabbing;
     }
 
     .close {
-      border: 0;
       width: 28px;
       height: 28px;
       border-radius: 50%;
+      border: 0;
       background: rgba(255,255,255,0.06);
       color: var(--muted);
-      cursor: pointer;
-      transition: 0.18s ease;
       font-size: 18px;
       line-height: 1;
+      cursor: pointer;
+      transition: 0.18s ease;
     }
 
     .close:hover {
-      background: var(--red);
       color: #fff;
+      background: var(--wine);
     }
 
-    .window-content {
-      padding: 26px;
+    .floating-content {
+      padding: 28px;
     }
 
     .window-label {
-      color: var(--accent);
+      color: var(--brass);
+      font-family: "IBM Plex Mono", monospace;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       font-size: 12px;
-      font-weight: 900;
       margin-bottom: 18px;
+      font-weight: 600;
     }
 
-    .window-content h2 {
+    .floating-content h2 {
       margin: 0 0 16px;
-      font-size: 38px;
-      letter-spacing: -0.055em;
+      font-size: 40px;
       line-height: 1;
+      letter-spacing: -0.06em;
       font-weight: 800;
     }
 
-    .window-content p {
+    .floating-content p {
+      margin: 0 0 24px;
       color: var(--muted);
-      line-height: 1.6;
-      margin: 0 0 22px;
+      line-height: 1.62;
       font-size: 16px;
     }
 
+    .window-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     .window-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
       min-height: 44px;
       padding: 0 15px;
       border-radius: 999px;
       background: var(--text);
-      color: #09090b;
+      color: #090a0d;
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
       font-weight: 900;
       transition: 0.2s ease;
@@ -524,32 +614,42 @@
 
     .window-link:hover {
       transform: translateY(-2px);
-      background: var(--accent);
+      background: var(--brass);
     }
 
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      margin-top: 28px;
-      color: var(--muted-2);
-      font-size: 14px;
-      animation: fadeUp 0.9s ease both;
-    }
-
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
-    }
-
-    footer a:hover {
+    .window-ghost {
+      min-height: 44px;
+      padding: 0 15px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
       color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 800;
+      transition: 0.2s ease;
     }
 
-    @keyframes lift {
+    .window-ghost:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.075);
+    }
+
+    .hint {
+      position: fixed;
+      right: 28px;
+      bottom: 32px;
+      color: var(--muted-dark);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      z-index: 5;
+    }
+
+    @keyframes rise {
       from {
         opacity: 0;
-        transform: translateY(18px) scale(0.985);
+        transform: translateY(18px) scale(0.99);
       }
       to {
         opacity: 1;
@@ -571,18 +671,18 @@
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translate(-50%, 12px);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate(-50%, 0);
       }
     }
 
     @keyframes windowIn {
       from {
         opacity: 0;
-        transform: translateY(8px) scale(0.985);
+        transform: translateY(10px) scale(0.985);
       }
       to {
         opacity: 1;
@@ -592,39 +692,68 @@
 
     @media (max-width: 980px) {
       body {
-        overflow-x: hidden;
+        overflow: auto;
       }
 
-      .hero {
-        grid-template-columns: 1fr;
+      .desktop {
+        padding-bottom: 130px;
       }
 
-      .intro {
+      .stage {
+        height: auto;
         min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 44px;
       }
 
-      .dock-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .visual-area {
+        height: 560px;
       }
 
-      .intro-body {
-        padding: 42px 26px 34px;
+      .profile-window {
+        right: 0;
+        left: auto;
+      }
+
+      .notes-window {
+        left: 0;
+      }
+
+      .map-window {
+        right: 70px;
+      }
+
+      .hint {
+        display: none;
       }
     }
 
-    @media (max-width: 560px) {
-      .desktop {
-        width: min(100% - 22px, 1320px);
-        padding-top: 16px;
+    @media (max-width: 620px) {
+      body {
+        overflow: auto;
       }
 
-      .menu-note {
+      .desktop {
+        width: min(100% - 22px, 1360px);
+        padding-top: 14px;
+      }
+
+      .menubar-center,
+      .menubar-right {
         display: none;
       }
 
+      .menubar {
+        justify-content: center;
+      }
+
+      .stage {
+        padding-top: 36px;
+      }
+
       h1 {
-        font-size: 52px;
-        letter-spacing: -0.04em;
+        font-size: 54px;
+        letter-spacing: -0.045em;
       }
 
       .lead {
@@ -635,26 +764,50 @@
         font-size: 16px;
       }
 
-      .dock-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
+      .quick-actions {
         flex-direction: column;
       }
 
       .btn {
-        justify-content: center;
         width: 100%;
+      }
+
+      .visual-area {
+        height: auto;
+        display: grid;
+        gap: 18px;
+      }
+
+      .glass-window {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+
+      .profile-window,
+      .notes-window,
+      .map-window {
+        width: 100%;
+      }
+
+      .map-window {
+        display: none;
+      }
+
+      .dock {
+        width: calc(100% - 22px);
+        overflow-x: auto;
+        justify-content: flex-start;
+        border-radius: 24px;
+      }
+
+      .dock-btn {
+        min-width: 76px;
       }
 
       .floating-window {
         left: 14px !important;
-        top: 90px !important;
-      }
-
-      footer {
-        flex-direction: column;
+        top: 80px !important;
       }
     }
   </style>
@@ -663,91 +816,59 @@
 <body>
   <div class="desktop">
 
-    <header class="menu-bar">
+    <header class="menubar">
       <div class="brand">
         <span class="brand-dot"></span>
         <span>danamil.ru</span>
       </div>
 
-      <div class="menu-note">personal marketing desktop</div>
+      <div class="menubar-center">personal marketing desktop</div>
+
+      <div class="menubar-right">
+        <span>RANEPA</span>
+        <span>2026</span>
+      </div>
     </header>
 
-    <main class="hero">
+    <main class="stage">
 
-      <section class="window intro">
-        <div class="window-head">
-          <div class="dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <span>main / identity</span>
-        </div>
+      <section class="hero-copy">
+        <div class="eyebrow">personal site</div>
 
-        <div class="intro-body">
-          <div class="kicker">personal site</div>
+        <h1>Артур<br>Виноградов.</h1>
 
-          <h1>Артур<br>Виноградов.</h1>
+        <p class="lead">
+          Danamil. RANEPA. Маркетинг, брендинг, медиа, стратегии.
+        </p>
 
-          <p class="lead">
-            Danamil. RANEPA. Маркетинг, брендинг, медиа, стратегии.
-          </p>
+        <p class="desc">
+          Начинающий маркетолог. Изучаю бренды, коммуникации и цифровую среду.
+          Собираю здесь работу, заметки, поездки и личные проекты.
+        </p>
 
-          <p class="desc">
-            Начинающий маркетолог. Изучаю бренды, коммуникации и цифровую среду.
-            Собираю здесь работу, заметки, поездки и личные проекты.
-          </p>
-
-          <div class="actions">
-            <button class="btn primary" data-open="contacts">Связаться</button>
-            <button class="btn" data-open="work">Открыть работу</button>
-            <button class="btn" data-open="notes">Заметки</button>
-          </div>
-
-          <div class="dock-grid">
-            <button class="app" data-open="work">
-              <span class="app-num">01</span>
-              <span class="app-title">Работа</span>
-            </button>
-
-            <button class="app" data-open="notes">
-              <span class="app-num">02</span>
-              <span class="app-title">Заметки</span>
-            </button>
-
-            <button class="app" data-open="about">
-              <span class="app-num">03</span>
-              <span class="app-title">Обо мне</span>
-            </button>
-
-            <button class="app" data-open="travel">
-              <span class="app-num">04</span>
-              <span class="app-title">Путешествия</span>
-            </button>
-
-            <button class="app" data-open="contacts">
-              <span class="app-num">05</span>
-              <span class="app-title">Контакты</span>
-            </button>
-          </div>
+        <div class="quick-actions">
+          <button class="btn primary" data-open="contacts">Связаться</button>
+          <button class="btn" data-open="work">Открыть работу</button>
+          <button class="btn" data-open="notes">Заметки</button>
         </div>
       </section>
 
-      <aside class="side">
-        <section class="window">
-          <div class="window-head">
+      <section class="visual-area">
+
+        <article class="glass-window profile-window">
+          <div class="window-bar">
             <div class="dots">
               <span class="dot red"></span>
               <span class="dot yellow"></span>
               <span class="dot green"></span>
             </div>
-            <span>profile card</span>
+            <span>profile.card</span>
           </div>
 
           <div class="profile-body">
             <div class="photo">место для фото</div>
 
-            <p class="panel-text">
+            <p class="profile-text">
               Первая версия личной страницы. Позже здесь появятся фото,
               кейсы, тексты, резюме и нормальная структура портфолио.
             </p>
@@ -759,41 +880,95 @@
               <span class="tag">strategy</span>
             </div>
           </div>
-        </section>
+        </article>
 
-        <section class="window status-panel">
-          <div class="status-title">сейчас</div>
-
-          <div class="status-list">
-            <div class="status-item">
-              <span class="plus">+</span>
-              <span>собираю личный сайт и структуру портфолио</span>
+        <article class="glass-window notes-window">
+          <div class="window-bar">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
             </div>
+            <span>now.txt</span>
+          </div>
 
-            <div class="status-item">
-              <span class="plus">+</span>
-              <span>изучаю маркетинг, бренды и коммуникации</span>
-            </div>
+          <div class="notes-body">
+            <div class="small-title">сейчас</div>
 
-            <div class="status-item">
-              <span class="plus">+</span>
-              <span>учусь превращать опыт в понятные кейсы</span>
+            <div class="status-list">
+              <div class="status-item">
+                <span class="plus">+</span>
+                <span>собираю личный сайт и структуру портфолио</span>
+              </div>
+
+              <div class="status-item">
+                <span class="plus">+</span>
+                <span>изучаю маркетинг, бренды и коммуникации</span>
+              </div>
+
+              <div class="status-item">
+                <span class="plus">+</span>
+                <span>учусь превращать опыт в понятные кейсы</span>
+              </div>
             </div>
           </div>
-        </section>
-      </aside>
+        </article>
+
+        <article class="glass-window map-window">
+          <div class="window-bar">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span>route.map</span>
+          </div>
+
+          <div class="map-body">
+            <div class="map-line one"></div>
+            <div class="map-line two"></div>
+            <div class="map-dot a"></div>
+            <div class="map-dot b"></div>
+            <div class="map-dot c"></div>
+          </div>
+        </article>
+
+      </section>
 
     </main>
-
-    <footer>
-      <div>© 2026 Danamil</div>
-      <div><a href="https://t.me/danamil">Telegram</a></div>
-    </footer>
-
   </div>
 
-  <div class="floating-window" id="window-work" style="left: 9%; top: 16%;">
-    <div class="window-top">
+  <nav class="dock" aria-label="Разделы сайта">
+    <button class="dock-btn" data-open="work">
+      <span class="dock-num">01</span>
+      <span class="dock-title">Работа</span>
+    </button>
+
+    <button class="dock-btn" data-open="notes">
+      <span class="dock-num">02</span>
+      <span class="dock-title">Заметки</span>
+    </button>
+
+    <button class="dock-btn" data-open="about">
+      <span class="dock-num">03</span>
+      <span class="dock-title">Обо мне</span>
+    </button>
+
+    <button class="dock-btn" data-open="travel">
+      <span class="dock-num">04</span>
+      <span class="dock-title">Путешествия</span>
+    </button>
+
+    <button class="dock-btn" data-open="contacts">
+      <span class="dock-num">05</span>
+      <span class="dock-title">Контакты</span>
+    </button>
+  </nav>
+
+  <div class="hint">drag windows · open dock apps</div>
+
+  <div class="floating-window" id="window-work" style="left: 11%; top: 17%;">
+    <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -803,19 +978,23 @@
       <button class="close" data-close="work">×</button>
     </div>
 
-    <div class="window-content">
+    <div class="floating-content">
       <div class="window-label">01 / work</div>
       <h2>Работа</h2>
       <p>
-        Проекты, опыт, кейсы и рабочие заметки. Здесь позже будут Strike Force,
-        email-маркетинг, выставки, презентации и другие задачи.
+        Проекты, опыт, кейсы и рабочие заметки. Здесь будут Strike Force,
+        email-маркетинг, выставки, презентации, контент и исследования.
       </p>
-      <a class="window-link" href="work.html">Перейти на страницу →</a>
+
+      <div class="window-actions">
+        <a class="window-link" href="work.html">Перейти на страницу →</a>
+        <button class="window-ghost" data-open="contacts">Связаться</button>
+      </div>
     </div>
   </div>
 
-  <div class="floating-window" id="window-notes" style="left: 18%; top: 24%;">
-    <div class="window-top">
+  <div class="floating-window" id="window-notes" style="left: 21%; top: 23%;">
+    <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -825,19 +1004,23 @@
       <button class="close" data-close="notes">×</button>
     </div>
 
-    <div class="window-content">
+    <div class="floating-content">
       <div class="window-label">02 / notes</div>
       <h2>Заметки</h2>
       <p>
         Мысли о маркетинге, медиа, учебе, поездках и проектах. Короткие тексты,
         которые постепенно будут собирать мой взгляд.
       </p>
-      <a class="window-link" href="notes.html">Перейти на страницу →</a>
+
+      <div class="window-actions">
+        <a class="window-link" href="notes.html">Перейти на страницу →</a>
+        <button class="window-ghost" data-open="work">Открыть работу</button>
+      </div>
     </div>
   </div>
 
-  <div class="floating-window" id="window-about" style="left: 27%; top: 18%;">
-    <div class="window-top">
+  <div class="floating-window" id="window-about" style="left: 31%; top: 19%;">
+    <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -847,19 +1030,23 @@
       <button class="close" data-close="about">×</button>
     </div>
 
-    <div class="window-content">
+    <div class="floating-content">
       <div class="window-label">03 / about</div>
       <h2>Обо мне</h2>
       <p>
         Артур Виноградов. Danamil. RANEPA. Маркетинг, брендинг,
-        медиа и стратегии. Здесь будет более цельный текст обо мне.
+        медиа и стратегии. Здесь будет цельный текст обо мне.
       </p>
-      <a class="window-link" href="about.html">Перейти на страницу →</a>
+
+      <div class="window-actions">
+        <a class="window-link" href="about.html">Перейти на страницу →</a>
+        <button class="window-ghost" data-open="contacts">Контакты</button>
+      </div>
     </div>
   </div>
 
-  <div class="floating-window" id="window-travel" style="left: 36%; top: 26%;">
-    <div class="window-top">
+  <div class="floating-window" id="window-travel" style="left: 40%; top: 27%;">
+    <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -869,19 +1056,23 @@
       <button class="close" data-close="travel">×</button>
     </div>
 
-    <div class="window-content">
+    <div class="floating-content">
       <div class="window-label">04 / travel</div>
       <h2>Путешествия</h2>
       <p>
         Места, маршруты, наблюдения и личные впечатления. Раздел под поездки,
         города, страны и заметки с дороги.
       </p>
-      <a class="window-link" href="travel.html">Перейти на страницу →</a>
+
+      <div class="window-actions">
+        <a class="window-link" href="travel.html">Перейти на страницу →</a>
+        <button class="window-ghost" data-open="notes">Заметки</button>
+      </div>
     </div>
   </div>
 
-  <div class="floating-window" id="window-contacts" style="left: 45%; top: 20%;">
-    <div class="window-top">
+  <div class="floating-window" id="window-contacts" style="left: 49%; top: 21%;">
+    <div class="floating-top">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -891,20 +1082,24 @@
       <button class="close" data-close="contacts">×</button>
     </div>
 
-    <div class="window-content">
+    <div class="floating-content">
       <div class="window-label">05 / contacts</div>
       <h2>Контакты</h2>
       <p>
-        Самый быстрый способ связаться — Telegram. Почту и резюме можно будет
-        добавить позже.
+        Самый быстрый способ связаться — Telegram. Почту, резюме и другие ссылки
+        можно будет добавить позже.
       </p>
-      <a class="window-link" href="contacts.html">Перейти на страницу →</a>
+
+      <div class="window-actions">
+        <a class="window-link" href="contacts.html">Перейти на страницу →</a>
+        <a class="window-ghost" href="https://t.me/danamil">Telegram</a>
+      </div>
     </div>
   </div>
 
   <script>
     const windows = document.querySelectorAll('.floating-window');
-    let topZ = 20;
+    let topZ = 40;
 
     document.querySelectorAll('[data-open]').forEach(button => {
       button.addEventListener('click', () => {
@@ -930,7 +1125,7 @@
     });
 
     windows.forEach(windowEl => {
-      const header = windowEl.querySelector('.window-top');
+      const header = windowEl.querySelector('.floating-top');
 
       let isDragging = false;
       let startX = 0;
