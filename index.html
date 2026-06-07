@@ -19,11 +19,9 @@
       --muted: #a5a096;
       --muted-dark: #6d7078;
       --line: rgba(255, 255, 255, 0.13);
-
       --brass: #c4a46a;
       --blue: #7d8fb8;
       --wine: #8f5f5f;
-
       --shadow: 0 35px 120px rgba(0, 0, 0, 0.62);
       --radius: 28px;
     }
@@ -127,6 +125,8 @@
 
     .hero-copy {
       animation: rise 0.8s ease both;
+      position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -164,6 +164,8 @@
       margin-top: 52px;
       max-width: 100%;
       flex-wrap: nowrap;
+      position: relative;
+      z-index: 5;
     }
 
     .main-button {
@@ -177,17 +179,13 @@
       color: var(--text);
       cursor: pointer;
       text-align: left;
-      padding: 20px 20px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      transition:
-        transform 0.24s ease,
-        background 0.24s ease,
-        border-color 0.24s ease,
-        box-shadow 0.24s ease;
+      transition: 0.24s ease;
     }
 
     .main-button::after {
@@ -199,7 +197,7 @@
       bottom: -76px;
       border-radius: 50%;
       background: rgba(196, 164, 106, 0.13);
-      transition: transform 0.28s ease, background 0.28s ease;
+      transition: 0.28s ease;
     }
 
     .main-button:hover {
@@ -239,32 +237,109 @@
       position: relative;
       min-height: 560px;
       animation: rise 0.9s ease both;
+      z-index: 1;
     }
 
-    .glass-window {
-      position: absolute;
-      border: 1px solid var(--line);
+    .glass-window,
+    .floating-window {
+      border: 1px solid rgba(255,255,255,0.17);
       border-radius: var(--radius);
       background:
         linear-gradient(145deg, rgba(255,255,255,0.10), transparent 38%),
-        var(--surface);
+        rgba(18, 20, 25, 0.95);
       backdrop-filter: blur(24px);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .window-bar {
-      height: 50px;
+    .glass-window {
+      position: absolute;
+    }
+
+    .profile-window {
+      width: 500px;
+      min-height: 490px;
+      right: 20px;
+      top: 10px;
+      z-index: 2;
+    }
+
+    .draggable-window {
+      transition:
+        width 0.22s ease,
+        height 0.22s ease,
+        min-height 0.22s ease,
+        transform 0.22s ease,
+        opacity 0.22s ease,
+        box-shadow 0.22s ease;
+    }
+
+    .draggable-window.minimized {
+      position: fixed !important;
+      left: 24px !important;
+      bottom: 24px !important;
+      top: auto !important;
+      width: 230px !important;
+      min-height: 54px !important;
+      height: 54px !important;
+      border-radius: 16px;
+      z-index: 60 !important;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+    }
+
+    .draggable-window.minimized .profile-body,
+    .draggable-window.minimized .floating-content {
+      display: none;
+    }
+
+    .draggable-window.minimized .window-bar,
+    .draggable-window.minimized .floating-top {
+      height: 54px;
+      border-bottom: 0;
+      cursor: pointer;
+    }
+
+    .draggable-window.minimized .dot {
+      width: 9px;
+      height: 9px;
+    }
+
+    .draggable-window.minimized:hover {
+      transform: translateY(-3px);
+      border-color: rgba(196,164,106,0.5);
+    }
+
+    .window-bar,
+    .floating-top {
+      height: 52px;
       border-bottom: 1px solid var(--line);
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       padding: 0 16px;
-      background: rgba(255,255,255,0.032);
+      background: rgba(255,255,255,0.035);
       color: var(--muted-dark);
       font-family: "IBM Plex Mono", monospace;
       font-size: 12px;
       user-select: none;
+      cursor: grab;
+    }
+
+    .window-bar:active,
+    .floating-top:active {
+      cursor: grabbing;
+    }
+
+    .window-bar .dots,
+    .floating-top .dots {
+      justify-self: start;
+    }
+
+    .window-bar span,
+    .floating-top span {
+      justify-self: center;
     }
 
     .dots {
@@ -281,35 +356,43 @@
       border: 1px solid rgba(255,255,255,0.14);
     }
 
-    .dot.red { background: #ff5f57; }
-    .dot.yellow { background: #ffbd2e; }
-    .dot.green { background: #28c840; }
-
-    .floating-top .dot.yellow,
-    .floating-top .dot.green {
+    .dot.red {
+      background: #ff5f57;
       cursor: pointer;
+    }
+
+    .dot.yellow {
+      background: #ffbd2e;
+      cursor: pointer;
+    }
+
+    .dot.green {
+      background: #28c840;
+      cursor: pointer;
+    }
+
+    .dot.red,
+    .dot.yellow,
+    .dot.green {
       transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .floating-top .dot.yellow:hover,
-    .floating-top .dot.green:hover {
+    .dot.red:hover,
+    .dot.yellow:hover,
+    .dot.green:hover {
       transform: scale(1.18);
     }
 
-    .floating-top .dot.yellow:hover {
+    .dot.red:hover {
+      box-shadow: 0 0 18px rgba(255, 95, 87, 0.45);
+    }
+
+    .dot.yellow:hover {
       box-shadow: 0 0 18px rgba(255, 189, 46, 0.45);
     }
 
-    .floating-top .dot.green:hover {
+    .dot.green:hover {
       box-shadow: 0 0 18px rgba(40, 200, 64, 0.45);
-    }
-
-    .profile-window {
-      width: 520px;
-      min-height: 500px;
-      right: 0;
-      top: 34px;
-      z-index: 2;
     }
 
     .profile-body {
@@ -317,7 +400,7 @@
     }
 
     .photo {
-      height: 300px;
+      height: 292px;
       border-radius: 24px;
       border: 1px dashed rgba(255,255,255,0.22);
       background:
@@ -369,48 +452,13 @@
     .floating-window {
       position: fixed;
       width: min(620px, calc(100vw - 28px));
-      border: 1px solid rgba(255,255,255,0.17);
-      border-radius: 24px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.10), transparent 38%),
-        rgba(18, 20, 25, 0.95);
-      box-shadow: 0 30px 110px rgba(0,0,0,0.64);
-      backdrop-filter: blur(24px);
       z-index: 20;
-      overflow: hidden;
       display: none;
       animation: windowIn 0.22s ease both;
     }
 
     .floating-window.active {
       display: block;
-    }
-
-    .floating-top {
-      height: 52px;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      padding: 0 16px;
-      color: var(--muted-dark);
-      background: rgba(255,255,255,0.035);
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      cursor: grab;
-      user-select: none;
-    }
-
-    .floating-top:active {
-      cursor: grabbing;
-    }
-
-    .floating-top .dots {
-      justify-self: start;
-    }
-
-    .floating-top span {
-      justify-self: center;
     }
 
     .floating-content {
@@ -669,14 +717,15 @@
       </section>
 
       <section class="visual-area">
-        <article class="glass-window profile-window">
-          <div class="window-bar">
+        <article class="glass-window profile-window draggable-window active-static" data-page="photo.html">
+          <div class="window-bar draggable-handle">
             <div class="dots">
               <span class="dot red"></span>
               <span class="dot yellow"></span>
               <span class="dot green"></span>
             </div>
             <span>profile.card</span>
+            <div></div>
           </div>
 
           <div class="profile-body">
@@ -700,8 +749,8 @@
     </main>
   </div>
 
-  <div class="floating-window" id="window-work" data-page="work.html" style="left: 11%; top: 17%;">
-    <div class="floating-top">
+  <div class="floating-window draggable-window" id="window-work" data-page="work.html" style="left: 11%; top: 17%;">
+    <div class="floating-top draggable-handle">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -726,8 +775,8 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-notes" data-page="notes.html" style="left: 21%; top: 23%;">
-    <div class="floating-top">
+  <div class="floating-window draggable-window" id="window-notes" data-page="notes.html" style="left: 21%; top: 23%;">
+    <div class="floating-top draggable-handle">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -752,8 +801,8 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-about" data-page="about.html" style="left: 31%; top: 19%;">
-    <div class="floating-top">
+  <div class="floating-window draggable-window" id="window-about" data-page="about.html" style="left: 31%; top: 19%;">
+    <div class="floating-top draggable-handle">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -778,8 +827,8 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-travel" data-page="travel.html" style="left: 40%; top: 27%;">
-    <div class="floating-top">
+  <div class="floating-window draggable-window" id="window-travel" data-page="travel.html" style="left: 40%; top: 27%;">
+    <div class="floating-top draggable-handle">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -804,8 +853,8 @@
     </div>
   </div>
 
-  <div class="floating-window" id="window-contacts" data-page="contacts.html" style="left: 49%; top: 21%;">
-    <div class="floating-top">
+  <div class="floating-window draggable-window" id="window-contacts" data-page="contacts.html" style="left: 49%; top: 21%;">
+    <div class="floating-top draggable-handle">
       <div class="dots">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
@@ -831,8 +880,9 @@
   </div>
 
   <script>
-    const windows = document.querySelectorAll('.floating-window');
-    let topZ = 40;
+    const windows = document.querySelectorAll('.draggable-window');
+    let topZ = 80;
+    let minimizedCount = 0;
 
     document.querySelectorAll('[data-open]').forEach(button => {
       button.addEventListener('click', () => {
@@ -841,24 +891,46 @@
 
         if (!windowEl) return;
 
+        windowEl.classList.remove('minimized');
         windowEl.classList.add('active');
         windowEl.style.zIndex = ++topZ;
       });
     });
 
-    document.querySelectorAll('.floating-window .dot.yellow').forEach(yellowDot => {
-      yellowDot.addEventListener('click', () => {
-        const windowEl = yellowDot.closest('.floating-window');
+    document.querySelectorAll('.draggable-window .dot.red').forEach(redDot => {
+      redDot.addEventListener('click', event => {
+        event.stopPropagation();
+
+        const windowEl = redDot.closest('.draggable-window');
 
         if (!windowEl) return;
 
         windowEl.classList.remove('active');
+        windowEl.classList.remove('minimized');
+
+        if (windowEl.classList.contains('active-static')) {
+          windowEl.style.display = 'none';
+        }
       });
     });
 
-    document.querySelectorAll('.floating-window .dot.green').forEach(greenDot => {
-      greenDot.addEventListener('click', () => {
-        const windowEl = greenDot.closest('.floating-window');
+    document.querySelectorAll('.draggable-window .dot.yellow').forEach(yellowDot => {
+      yellowDot.addEventListener('click', event => {
+        event.stopPropagation();
+
+        const windowEl = yellowDot.closest('.draggable-window');
+
+        if (!windowEl) return;
+
+        minimizeWindow(windowEl);
+      });
+    });
+
+    document.querySelectorAll('.draggable-window .dot.green').forEach(greenDot => {
+      greenDot.addEventListener('click', event => {
+        event.stopPropagation();
+
+        const windowEl = greenDot.closest('.draggable-window');
 
         if (!windowEl) return;
 
@@ -871,7 +943,7 @@
     });
 
     windows.forEach(windowEl => {
-      const header = windowEl.querySelector('.floating-top');
+      const header = windowEl.querySelector('.draggable-handle');
 
       let isDragging = false;
       let startX = 0;
@@ -886,10 +958,29 @@
         windowEl.style.zIndex = ++topZ;
       });
 
+      windowEl.addEventListener('click', () => {
+        if (windowEl.classList.contains('minimized')) {
+          restoreWindow(windowEl);
+        }
+      });
+
       function startDrag(e) {
         if (e.target.classList.contains('dot')) return;
+        if (windowEl.classList.contains('minimized')) return;
 
         isDragging = true;
+        windowEl.style.zIndex = ++topZ;
+
+        const rect = windowEl.getBoundingClientRect();
+
+        if (windowEl.classList.contains('active-static')) {
+          windowEl.style.position = 'fixed';
+          windowEl.style.left = `${rect.left}px`;
+          windowEl.style.top = `${rect.top}px`;
+          windowEl.style.right = 'auto';
+          windowEl.style.bottom = 'auto';
+        }
+
         startX = e.clientX;
         startY = e.clientY;
         startLeft = windowEl.offsetLeft;
@@ -901,11 +992,22 @@
 
       function startDragTouch(e) {
         if (e.target.classList.contains('dot')) return;
+        if (windowEl.classList.contains('minimized')) return;
 
         e.preventDefault();
-
         isDragging = true;
+        windowEl.style.zIndex = ++topZ;
+
         const touch = e.touches[0];
+        const rect = windowEl.getBoundingClientRect();
+
+        if (windowEl.classList.contains('active-static')) {
+          windowEl.style.position = 'fixed';
+          windowEl.style.left = `${rect.left}px`;
+          windowEl.style.top = `${rect.top}px`;
+          windowEl.style.right = 'auto';
+          windowEl.style.bottom = 'auto';
+        }
 
         startX = touch.clientX;
         startY = touch.clientY;
@@ -922,7 +1024,7 @@
         const nextLeft = startLeft + e.clientX - startX;
         const nextTop = startTop + e.clientY - startY;
 
-        moveWindow(nextLeft, nextTop);
+        moveWindow(windowEl, nextLeft, nextTop);
       }
 
       function dragTouch(e) {
@@ -931,19 +1033,10 @@
         e.preventDefault();
 
         const touch = e.touches[0];
-
         const nextLeft = startLeft + touch.clientX - startX;
         const nextTop = startTop + touch.clientY - startY;
 
-        moveWindow(nextLeft, nextTop);
-      }
-
-      function moveWindow(left, top) {
-        const maxLeft = window.innerWidth - windowEl.offsetWidth - 10;
-        const maxTop = window.innerHeight - 70;
-
-        windowEl.style.left = `${Math.max(10, Math.min(left, maxLeft))}px`;
-        windowEl.style.top = `${Math.max(10, Math.min(top, maxTop))}px`;
+        moveWindow(windowEl, nextLeft, nextTop);
       }
 
       function stopDrag() {
@@ -958,6 +1051,47 @@
         document.removeEventListener('touchend', stopDragTouch);
       }
     });
+
+    function moveWindow(windowEl, left, top) {
+      const maxLeft = window.innerWidth - windowEl.offsetWidth - 10;
+      const maxTop = window.innerHeight - 70;
+
+      windowEl.style.left = `${Math.max(10, Math.min(left, maxLeft))}px`;
+      windowEl.style.top = `${Math.max(10, Math.min(top, maxTop))}px`;
+    }
+
+    function minimizeWindow(windowEl) {
+      const rect = windowEl.getBoundingClientRect();
+
+      windowEl.dataset.restoreLeft = `${rect.left}px`;
+      windowEl.dataset.restoreTop = `${rect.top}px`;
+      windowEl.dataset.restorePosition = window.getComputedStyle(windowEl).position;
+
+      windowEl.classList.add('minimized');
+      windowEl.style.display = '';
+      windowEl.style.left = `${24 + minimizedCount * 246}px`;
+      windowEl.style.bottom = '24px';
+      windowEl.style.top = 'auto';
+      windowEl.style.right = 'auto';
+      windowEl.style.zIndex = ++topZ;
+
+      minimizedCount += 1;
+    }
+
+    function restoreWindow(windowEl) {
+      windowEl.classList.remove('minimized');
+
+      windowEl.style.position = 'fixed';
+      windowEl.style.left = windowEl.dataset.restoreLeft || '80px';
+      windowEl.style.top = windowEl.dataset.restoreTop || '80px';
+      windowEl.style.bottom = 'auto';
+      windowEl.style.right = 'auto';
+      windowEl.style.zIndex = ++topZ;
+
+      if (minimizedCount > 0) {
+        minimizedCount -= 1;
+      }
+    }
   </script>
 </body>
 </html>
