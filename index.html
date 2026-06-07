@@ -13,7 +13,6 @@
     }
 
     :root {
-      --surface: rgba(18, 20, 25, 0.72);
       --text: #f4efe6;
       --muted: #a5a096;
       --muted-dark: #6d7078;
@@ -113,17 +112,16 @@
 
     .stage {
       min-height: calc(100vh - 112px);
-      display: grid;
-      grid-template-columns: 1fr 0.82fr;
-      gap: 44px;
+      display: flex;
       align-items: center;
       padding-top: 28px;
     }
 
     .hero-copy {
-      animation: rise 0.8s ease both;
       position: relative;
       z-index: 2;
+      animation: rise 0.8s ease both;
+      max-width: 930px;
     }
 
     h1 {
@@ -230,13 +228,6 @@
       white-space: nowrap;
     }
 
-    .visual-area {
-      position: relative;
-      min-height: 560px;
-      animation: rise 0.9s ease both;
-      z-index: 1;
-    }
-
     .draggable-window {
       border: 1px solid rgba(255,255,255,0.17);
       border-radius: var(--radius);
@@ -256,12 +247,14 @@
     }
 
     .profile-window {
-      position: absolute;
+      position: fixed;
       width: 500px;
       min-height: 490px;
-      right: 20px;
-      top: 10px;
-      z-index: 2;
+      left: 54%;
+      top: 31%;
+      z-index: 25;
+      display: block;
+      animation: windowIn 0.28s ease both;
     }
 
     .floating-window {
@@ -286,7 +279,7 @@
       min-height: 54px !important;
       height: 54px !important;
       border-radius: 16px;
-      z-index: 60 !important;
+      z-index: 90 !important;
       cursor: pointer;
       overflow: hidden;
       box-shadow: 0 18px 60px rgba(0,0,0,0.55);
@@ -297,8 +290,7 @@
       display: none;
     }
 
-    .draggable-window.minimized .window-bar,
-    .draggable-window.minimized .floating-top {
+    .draggable-window.minimized .window-top {
       height: 54px;
       border-bottom: 0;
       cursor: pointer;
@@ -314,8 +306,7 @@
       border-color: rgba(196,164,106,0.5);
     }
 
-    .window-bar,
-    .floating-top {
+    .window-top {
       height: 52px;
       border-bottom: 1px solid var(--line);
       display: grid;
@@ -330,18 +321,15 @@
       cursor: grab;
     }
 
-    .window-bar:active,
-    .floating-top:active {
+    .window-top:active {
       cursor: grabbing;
     }
 
-    .window-bar .dots,
-    .floating-top .dots {
+    .window-top .dots {
       justify-self: start;
     }
 
-    .window-bar span,
-    .floating-top span {
+    .window-top span {
       justify-self: center;
     }
 
@@ -556,20 +544,6 @@
     }
 
     @media (max-width: 1180px) {
-      .stage {
-        grid-template-columns: 1fr;
-        gap: 48px;
-      }
-
-      .visual-area {
-        min-height: 540px;
-      }
-
-      .profile-window {
-        right: auto;
-        left: 0;
-      }
-
       .main-buttons {
         overflow-x: auto;
         padding-bottom: 8px;
@@ -578,16 +552,22 @@
       .main-button {
         min-width: 150px;
       }
+
+      .profile-window {
+        left: 52%;
+        top: 42%;
+      }
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 760px) {
       .desktop {
         width: min(100% - 22px, 1360px);
         padding-top: 14px;
       }
 
       .stage {
-        padding-top: 36px;
+        min-height: auto;
+        padding-top: 64px;
       }
 
       h1 {
@@ -616,23 +596,11 @@
         font-size: 19px;
       }
 
-      .visual-area {
-        min-height: auto;
-        display: grid;
-        gap: 18px;
-      }
-
-      .profile-window {
-        position: relative;
-        width: 100%;
-        left: auto;
-        right: auto;
-        top: auto;
-      }
-
+      .profile-window,
       .floating-window {
         left: 14px !important;
         top: 80px !important;
+        width: calc(100vw - 28px) !important;
       }
 
       .floating-content h2 {
@@ -663,7 +631,6 @@
     </header>
 
     <main class="stage">
-
       <section class="hero-copy">
         <h1>Артур Виноградов. Danamil.</h1>
 
@@ -699,42 +666,39 @@
           </button>
         </div>
       </section>
-
-      <section class="visual-area">
-        <article class="profile-window draggable-window" data-page="photo.html">
-          <div class="window-bar draggable-handle">
-            <div class="dots">
-              <span class="dot red" title="Закрыть"></span>
-              <span class="dot yellow" title="Свернуть"></span>
-              <span class="dot green" title="Открыть страницу"></span>
-            </div>
-            <span>profile.card</span>
-            <div></div>
-          </div>
-
-          <div class="profile-body">
-            <div class="photo">место для фото</div>
-
-            <p class="profile-text">
-              Первая версия личной страницы. Позже здесь появятся фото,
-              кейсы, тексты, резюме и нормальная структура портфолио.
-            </p>
-
-            <div class="tags">
-              <span class="tag">marketing</span>
-              <span class="tag">branding</span>
-              <span class="tag">media</span>
-              <span class="tag">strategy</span>
-            </div>
-          </div>
-        </article>
-      </section>
-
     </main>
   </div>
 
+  <div class="profile-window draggable-window" id="window-photo" data-page="photo.html">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <span class="dot red" title="Закрыть"></span>
+        <span class="dot yellow" title="Свернуть"></span>
+        <span class="dot green" title="Открыть страницу"></span>
+      </div>
+      <span>profile.card</span>
+      <div></div>
+    </div>
+
+    <div class="profile-body">
+      <div class="photo">место для фото</div>
+
+      <p class="profile-text">
+        Первая версия личной страницы. Позже здесь появятся фото,
+        кейсы, тексты, резюме и нормальная структура портфолио.
+      </p>
+
+      <div class="tags">
+        <span class="tag">marketing</span>
+        <span class="tag">branding</span>
+        <span class="tag">media</span>
+        <span class="tag">strategy</span>
+      </div>
+    </div>
+  </div>
+
   <div class="floating-window draggable-window" id="window-work" data-page="work.html" style="left: 11%; top: 17%;">
-    <div class="floating-top draggable-handle">
+    <div class="window-top draggable-handle">
       <div class="dots">
         <span class="dot red" title="Закрыть"></span>
         <span class="dot yellow" title="Свернуть"></span>
@@ -754,13 +718,12 @@
 
       <div class="window-actions">
         <a class="window-link" href="work.html">Перейти на страницу →</a>
-        <button class="window-ghost" data-open="contacts">Связаться</button>
       </div>
     </div>
   </div>
 
   <div class="floating-window draggable-window" id="window-notes" data-page="notes.html" style="left: 21%; top: 23%;">
-    <div class="floating-top draggable-handle">
+    <div class="window-top draggable-handle">
       <div class="dots">
         <span class="dot red" title="Закрыть"></span>
         <span class="dot yellow" title="Свернуть"></span>
@@ -780,13 +743,12 @@
 
       <div class="window-actions">
         <a class="window-link" href="notes.html">Перейти на страницу →</a>
-        <button class="window-ghost" data-open="work">Открыть работу</button>
       </div>
     </div>
   </div>
 
   <div class="floating-window draggable-window" id="window-about" data-page="about.html" style="left: 31%; top: 19%;">
-    <div class="floating-top draggable-handle">
+    <div class="window-top draggable-handle">
       <div class="dots">
         <span class="dot red" title="Закрыть"></span>
         <span class="dot yellow" title="Свернуть"></span>
@@ -806,13 +768,12 @@
 
       <div class="window-actions">
         <a class="window-link" href="about.html">Перейти на страницу →</a>
-        <button class="window-ghost" data-open="contacts">Контакты</button>
       </div>
     </div>
   </div>
 
   <div class="floating-window draggable-window" id="window-travel" data-page="travel.html" style="left: 40%; top: 27%;">
-    <div class="floating-top draggable-handle">
+    <div class="window-top draggable-handle">
       <div class="dots">
         <span class="dot red" title="Закрыть"></span>
         <span class="dot yellow" title="Свернуть"></span>
@@ -832,13 +793,12 @@
 
       <div class="window-actions">
         <a class="window-link" href="travel.html">Перейти на страницу →</a>
-        <button class="window-ghost" data-open="notes">Заметки</button>
       </div>
     </div>
   </div>
 
   <div class="floating-window draggable-window" id="window-contacts" data-page="contacts.html" style="left: 49%; top: 21%;">
-    <div class="floating-top draggable-handle">
+    <div class="window-top draggable-handle">
       <div class="dots">
         <span class="dot red" title="Закрыть"></span>
         <span class="dot yellow" title="Свернуть"></span>
@@ -875,9 +835,7 @@
 
         if (!windowEl) return;
 
-        windowEl.classList.remove('minimized');
-        windowEl.classList.add('active');
-        windowEl.style.zIndex = ++topZ;
+        openWindow(windowEl);
       });
     });
 
@@ -888,9 +846,7 @@
         const windowEl = redDot.closest('.draggable-window');
         if (!windowEl) return;
 
-        windowEl.classList.remove('active');
-        windowEl.classList.remove('minimized');
-        windowEl.style.display = 'none';
+        closeWindow(windowEl);
       });
     });
 
@@ -968,6 +924,7 @@
         if (windowEl.classList.contains('minimized')) return;
 
         e.preventDefault();
+
         isDragging = true;
         windowEl.style.zIndex = ++topZ;
 
@@ -1000,6 +957,7 @@
 
       function dragTouch(e) {
         if (!isDragging) return;
+
         e.preventDefault();
 
         const touch = e.touches[0];
@@ -1022,6 +980,31 @@
       }
     });
 
+    function openWindow(windowEl) {
+      windowEl.classList.remove('closed');
+      windowEl.classList.remove('minimized');
+      windowEl.classList.add('active');
+      windowEl.style.display = 'block';
+      windowEl.style.bottom = 'auto';
+      windowEl.style.right = 'auto';
+      windowEl.style.zIndex = ++topZ;
+
+      if (!windowEl.style.left || windowEl.style.left === 'auto') {
+        windowEl.style.left = '80px';
+      }
+
+      if (!windowEl.style.top || windowEl.style.top === 'auto') {
+        windowEl.style.top = '80px';
+      }
+    }
+
+    function closeWindow(windowEl) {
+      windowEl.classList.remove('active');
+      windowEl.classList.remove('minimized');
+      windowEl.classList.add('closed');
+      windowEl.style.display = 'none';
+    }
+
     function moveWindow(windowEl, left, top) {
       const maxLeft = window.innerWidth - windowEl.offsetWidth - 10;
       const maxTop = window.innerHeight - 70;
@@ -1036,8 +1019,9 @@
       windowEl.dataset.restoreLeft = `${rect.left}px`;
       windowEl.dataset.restoreTop = `${rect.top}px`;
 
+      windowEl.classList.remove('closed');
       windowEl.classList.add('minimized');
-      windowEl.style.display = '';
+      windowEl.style.display = 'block';
       windowEl.style.left = `${24 + minimizedCount * 246}px`;
       windowEl.style.bottom = '24px';
       windowEl.style.top = 'auto';
@@ -1049,13 +1033,15 @@
 
     function restoreWindow(windowEl) {
       windowEl.classList.remove('minimized');
+      windowEl.classList.remove('closed');
+      windowEl.classList.add('active');
 
       windowEl.style.position = 'fixed';
       windowEl.style.left = windowEl.dataset.restoreLeft || '80px';
       windowEl.style.top = windowEl.dataset.restoreTop || '80px';
       windowEl.style.bottom = 'auto';
       windowEl.style.right = 'auto';
-      windowEl.style.display = '';
+      windowEl.style.display = 'block';
       windowEl.style.zIndex = ++topZ;
 
       if (minimizedCount > 0) minimizedCount -= 1;
