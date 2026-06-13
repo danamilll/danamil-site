@@ -16,9 +16,35 @@ a{color:inherit}button{font-family:inherit}.page{position:relative;z-index:1;wid
 @keyframes rise{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @media(max-width:860px){.menubar{justify-content:center}.nav{display:none}.hero{padding-top:58px}.card-body,.modal-content{padding:22px}.footer{display:grid;gap:10px}}@media(max-width:520px){.page{width:min(100% - 22px,1240px)}h1{font-size:48px;letter-spacing:-.045em}.lead{font-size:20px}.btn{width:100%}}
 
-.work-grid{display:grid;grid-template-columns:1fr;gap:22px}.work-block{min-height:520px;display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch}.work-hero{padding:34px;display:flex;flex-direction:column;justify-content:space-between}.work-hero h2{margin:0;font-size:clamp(54px,7vw,104px);line-height:.92;letter-spacing:-.07em}.work-meta{color:var(--brass);font-family:"IBM Plex Mono",monospace;font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px}.work-side{border-left:1px solid var(--line);padding:34px;background:radial-gradient(circle at 70% 20%,rgba(196,164,106,.14),transparent 30%),rgba(255,255,255,.025)}.big-number{font-family:"IBM Plex Mono",monospace;color:var(--muted-dark);font-size:92px;line-height:1;letter-spacing:-.08em}@media(max-width:860px){.work-block{grid-template-columns:1fr}.work-side{border-left:0;border-top:1px solid var(--line)}}
+.work-grid{display:grid;grid-template-columns:1fr;gap:22px}
+.work-block{min-height:420px;padding:34px;display:flex;flex-direction:column;justify-content:space-between}
+.work-block h2{margin:0;font-size:clamp(54px,7vw,104px);line-height:.92;letter-spacing:-.07em}
+.work-meta{color:var(--brass);font-family:"IBM Plex Mono",monospace;font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px}
+.work-text{max-width:850px}
+@media(max-width:860px){.work-block{min-height:auto;padding:24px}}.work-side{border-left:0;border-top:1px solid var(--line)}}
 </style></head><body><div class="page"><header class="menubar"><a class="brand" href="index.html"><span class="brand-dot"></span><span>danamil.ru</span></a><nav class="nav"><a href="work.html">Работа</a><a href="notes.html">Заметки</a><a href="about.html">Обо мне</a><a href="travel.html">Путешествия</a><a href="contacts.html">Контакты</a></nav></header><main><section class="hero"><div class="kicker">01 / work</div><h1>Работа</h1><p class="lead"></p></section>
-<section class="work-grid"><article class="card work-block"><div class="work-hero"><div><div class="work-meta">ноябрь 2025 — н.в.</div><h2>11tactical</h2></div><p class="text">Научился делать email-рассылки, раздаточную и наружную рекламу, организовывать стенды на выставках, презентации для B2B, вертикальный контент.</p></div><aside class="work-side"><div class="big-number">01</div><div class="placeholder">Здесь позже будет подробный блок про опыт, задачи, результаты и кейсы.</div><div class="tags"><span class="tag">email</span><span class="tag">B2B</span><span class="tag">content</span><span class="tag">events</span><span class="tag">Ozon</span></div></aside></article></section>
+<section class="work-grid">
+  <article class="card work-block">
+    <div>
+      <div class="work-meta">ноябрь 2025 — н.в.</div>
+      <h2>11tactical</h2>
+    </div>
+
+    <p class="text work-text">
+      Научился делать email-рассылки, раздаточную и наружную рекламу,
+      организовывать стенды на выставках, презентации для B2B,
+      вертикальный контент.
+    </p>
+
+    <div class="tags">
+      <span class="tag">email</span>
+      <span class="tag">B2B</span>
+      <span class="tag">content</span>
+      <span class="tag">events</span>
+      <span class="tag">Ozon</span>
+    </div>
+  </article>
+</section>
 <div class="actions"><a class="btn secondary" href="index.html">← На главную</a></div></main><footer class="footer"><span>© 2026 Danamil</span><span>personal site</span></footer></div>
 <script>
 document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>{const m=document.getElementById(b.dataset.modal);if(m)m.classList.add("active")}));
