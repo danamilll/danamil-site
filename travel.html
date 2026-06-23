@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Путешествия — Danamil</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+*{box-sizing:border-box}:root{--text:#f4efe6;--muted:#a5a096;--muted-dark:#6d7078;--line:rgba(255,255,255,.13);--brass:#c4a46a;--surface:rgba(18,20,25,.78);--shadow:0 35px 120px rgba(0,0,0,.62);--radius:28px}
+html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;font-family:Manrope,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 14% 18%,rgba(196,164,106,.22),transparent 28%),radial-gradient(circle at 86% 16%,rgba(125,143,184,.16),transparent 26%),radial-gradient(circle at 70% 86%,rgba(143,95,95,.13),transparent 31%),linear-gradient(135deg,#050608,#12151c 54%,#07080a)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:46px 46px;opacity:.62;mask-image:linear-gradient(to bottom,#000,transparent 86%)}body:after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 46%,rgba(0,0,0,.54)),linear-gradient(to bottom,rgba(255,255,255,.04),transparent 18%)}
+a{color:inherit}button{font-family:inherit}.page{position:relative;z-index:1;width:min(1240px,calc(100% - 34px));min-height:100vh;margin:0 auto;padding:22px 0 56px}
+.menubar{height:46px;border:1px solid var(--line);border-radius:999px;background:rgba(12,14,18,.56);backdrop-filter:blur(22px);box-shadow:0 18px 70px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:space-between;padding:0 16px;animation:fadeDown .7s ease both}.brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:-.03em;text-decoration:none}.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--brass);box-shadow:0 0 30px rgba(196,164,106,.72)}.nav{display:flex;gap:8px;color:var(--muted);font-size:13px;font-weight:700}.nav a{text-decoration:none;padding:8px 10px;border-radius:999px;transition:.2s ease}.nav a:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.hero{padding:82px 0 36px;animation:rise .8s ease both}.kicker{color:var(--brass);font-family:"IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.14em;font-size:12px;margin-bottom:18px;font-weight:600}h1{margin:0;font-size:clamp(58px,8vw,118px);line-height:.93;letter-spacing:-.065em;font-weight:800}.lead{margin:28px 0 0;max-width:860px;color:var(--muted);font-size:clamp(20px,2.2vw,32px);line-height:1.25;letter-spacing:-.035em;font-weight:600}.lead:empty{display:none}
+.card{border:1px solid rgba(255,255,255,.17);border-radius:var(--radius);background:linear-gradient(145deg,rgba(255,255,255,.10),transparent 38%),var(--surface);backdrop-filter:blur(24px);box-shadow:var(--shadow);overflow:hidden}.window-top{height:52px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 16px;background:rgba(255,255,255,.035);color:var(--muted-dark);font-family:"IBM Plex Mono",monospace;font-size:12px;user-select:none}.window-top.draggable-handle{cursor:grab}.dots{display:flex;gap:8px;align-items:center;justify-self:start}.dot{width:11px;height:11px;border-radius:50%;background:#30343d;border:1px solid rgba(255,255,255,.14)}.dot.red{background:#ff5f57}.dot.yellow{background:#ffbd2e}.dot.green{background:#28c840}.dot.empty{background:#3f444b;opacity:.9}.window-title{justify-self:center}.card-body{padding:30px}.text{margin:0;color:var(--muted);font-size:18px;line-height:1.62}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{min-height:54px;padding:0 22px;border-radius:999px;border:0;background:var(--text);color:#090a0d;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:900;font-size:17px;transition:.2s ease;cursor:pointer}.btn:hover{transform:translateY(-2px);background:var(--brass)}.btn.secondary{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--line)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.tag{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);font-size:12px;font-weight:800}.footer{margin-top:36px;display:flex;justify-content:space-between;color:var(--muted-dark);font-family:"IBM Plex Mono",monospace;font-size:12px}
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.55);backdrop-filter:blur(12px)}.modal.active{display:flex;animation:fadeIn .18s ease both}.modal-window{width:min(980px,100%);max-height:86vh;overflow:auto;border:1px solid rgba(255,255,255,.17);border-radius:var(--radius);background:linear-gradient(145deg,rgba(255,255,255,.10),transparent 38%),rgba(18,20,25,.96);box-shadow:var(--shadow)}.modal-content{padding:34px}.modal-content h2{margin:0 0 18px;font-size:clamp(40px,5vw,70px);line-height:.95;letter-spacing:-.06em}.modal-content p{color:var(--muted);font-size:18px;line-height:1.62}.draggable-modal{position:relative}
+.placeholder{margin-top:22px;border:1px dashed rgba(255,255,255,.18);border-radius:22px;padding:22px;color:var(--muted-dark);font-family:"IBM Plex Mono",monospace;font-size:13px;line-height:1.55;background:radial-gradient(circle at 20% 10%,rgba(196,164,106,.08),transparent 32%),rgba(255,255,255,.025)}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@media(max-width:860px){.menubar{justify-content:center}.nav{display:none}.hero{padding-top:58px}.card-body,.modal-content{padding:22px}.footer{display:grid;gap:10px}}@media(max-width:520px){.page{width:min(100% - 22px,1240px)}h1{font-size:48px;letter-spacing:-.045em}.lead{font-size:20px}.btn{width:100%}}
+
+.trip-list{display:grid;gap:14px}.trip{display:grid;grid-template-columns:180px 1fr auto;gap:18px;align-items:center;padding:22px;border-radius:28px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.045);cursor:pointer;transition:.24s ease}.trip:hover{transform:translateY(-4px);border-color:rgba(196,164,106,.48);background:rgba(255,255,255,.065)}.trip-date{color:var(--brass);font-family:"IBM Plex Mono",monospace;font-size:13px}.trip h2{margin:0 0 6px;font-size:clamp(26px,3.3vw,44px);line-height:1;letter-spacing:-.06em}.trip p{margin:0;color:var(--muted)}.trip-arrow{font-size:28px;color:var(--muted)}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.travel-photo{min-height:230px;aspect-ratio:4/3;border-radius:20px;border:1px solid rgba(255,255,255,.13);background:#111;overflow:hidden}.travel-photo img{width:100%;height:100%;object-fit:cover;display:block}.photo-slot{min-height:170px;border-radius:20px;border:1px dashed rgba(255,255,255,.18);background:radial-gradient(circle at 30% 20%,rgba(125,143,184,.16),transparent 36%),rgba(255,255,255,.035);display:flex;align-items:center;justify-content:center;color:var(--muted-dark);font-family:"IBM Plex Mono",monospace;font-size:12px}.impression{font-size:20px;color:var(--text)!important}.modal-date{color:var(--brass);font-family:"IBM Plex Mono",monospace;font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}@media(max-width:760px){.trip{grid-template-columns:1fr}.photo-grid{grid-template-columns:1fr}}
+</style></head><body><div class="page"><header class="menubar"><a class="brand" href="index.html"><span class="brand-dot"></span><span>danamil.ru</span></a><nav class="nav"><a href="work.html">Работа</a><a href="notes.html">Заметки</a><a href="about.html">Обо мне</a><a href="travel.html">Путешествия</a><a href="contacts.html">Контакты</a></nav></header><main><section class="hero"><div class="kicker">04 / travel</div><h1>Путешествия</h1><p class="lead"></p></section><section class="trip-list"><article class="trip" data-modal="spb-nov-2024">
+  <div class="trip-date">ноябрь 2024</div>
+  <div><h2>Санкт-Петербург</h2><p>Возможно, именно эта поездка стала причиной, почему я начал так часто ездить в Питер.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="erevan-mar-2025">
+  <div class="trip-date">март 2025</div>
+  <div><h2>Ереван</h2><p>Впервые был в Армении. Очень понравилось.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="istanbul-jul-2025">
+  <div class="trip-date">июль 2025</div>
+  <div><h2>Стамбул</h2><p>Отличная остановка перед Черногорией и Сербией.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="belgrade-aug-2025">
+  <div class="trip-date">август 2025</div>
+  <div><h2>Белград</h2><p>Очень понравились город и люди. Рекомендую.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="montenegro-jul-2025">
+  <div class="trip-date">июль 2025</div>
+  <div><h2>Черногория: Котор, Будва, Тиват</h2><p>Наверное, лучшая поездка в жизни. Полтора месяца у моря, городов и нормального ощущения свободы.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="spb-aug-2025">
+  <div class="trip-date">август 2025</div>
+  <div><h2>Санкт-Петербург</h2><p>Встретился с друзьями. Смак.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="nn-oct-2025">
+  <div class="trip-date">октябрь 2025</div>
+  <div><h2>Нижний Новгород</h2><p>Недооценённый город. И очень вкусная еда.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="istanbul-nov-2025">
+  <div class="trip-date">ноябрь 2025</div>
+  <div><h2>Стамбул</h2><p>Попал случайно. Было круто.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="armenia-dec-2025">
+  <div class="trip-date">декабрь 2025</div>
+  <div><h2>Ереван / Гюмри</h2><p>Прилетал на Новый год. Гюмри — хороший город.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="srilanka-feb-2026">
+  <div class="trip-date">февраль 2026</div>
+  <div><h2>Шри-Ланка</h2><p>Грелся и научился сёрфить.</p></div>
+  <div class="trip-arrow">→</div>
+</article><article class="trip" data-modal="yaroslavl-may-2026">
+  <div class="trip-date">май 2026</div>
+  <div><h2>Ярославль</h2><p>Не рекомендую. Остался без связи.</p></div>
+  <div class="trip-arrow">→</div>
+</article></section><div class="modal" id="spb-nov-2024">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">spb-nov-2024</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">ноябрь 2024</div>
+      <h2>Санкт-Петербург</h2>
+      <p class="impression">Возможно, именно эта поездка стала причиной, почему я начал так часто ездить в Питер.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="erevan-mar-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">erevan-mar-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">март 2025</div>
+      <h2>Ереван</h2>
+      <p class="impression">Впервые был в Армении. Очень понравилось.</p>
+      <div class="photo-grid"><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__erevan_mart_2025_1.jpg" alt="Ереван"></div><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__erevan_mart_2025_2.jpg" alt="Ереван"></div><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__erevan_mart_2025_3.jpg" alt="Ереван"></div></div>
+    </div>
+  </div>
+</div><div class="modal" id="istanbul-jul-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">istanbul-jul-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">июль 2025</div>
+      <h2>Стамбул</h2>
+      <p class="impression">Отличная остановка перед Черногорией и Сербией.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="belgrade-aug-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">belgrade-aug-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">август 2025</div>
+      <h2>Белград</h2>
+      <p class="impression">Очень понравились город и люди. Рекомендую.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="montenegro-jul-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">montenegro-jul-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">июль 2025</div>
+      <h2>Черногория: Котор, Будва, Тиват</h2>
+      <p class="impression">Наверное, лучшая поездка в жизни. Полтора месяца у моря, городов и нормального ощущения свободы.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="spb-aug-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">spb-aug-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">август 2025</div>
+      <h2>Санкт-Петербург</h2>
+      <p class="impression">Встретился с друзьями. Смак.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="nn-oct-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">nn-oct-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">октябрь 2025</div>
+      <h2>Нижний Новгород</h2>
+      <p class="impression">Недооценённый город. И очень вкусная еда.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="istanbul-nov-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">istanbul-nov-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">ноябрь 2025</div>
+      <h2>Стамбул</h2>
+      <p class="impression">Попал случайно. Было круто.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="armenia-dec-2025">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">armenia-dec-2025</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">декабрь 2025</div>
+      <h2>Ереван / Гюмри</h2>
+      <p class="impression">Прилетал на Новый год. Гюмри — хороший город.</p>
+      <div class="photo-grid"><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div><div class="photo-slot">фото добавлю</div></div>
+    </div>
+  </div>
+</div><div class="modal" id="srilanka-feb-2026">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">srilanka-feb-2026</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">февраль 2026</div>
+      <h2>Шри-Ланка</h2>
+      <p class="impression">Грелся и научился сёрфить.</p>
+      <div class="photo-grid"><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__shrilanka_2026_1.jpg" alt="Шри-Ланка"></div><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__shrilanka_2026_2.jpg" alt="Шри-Ланка"></div><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__shrilanka_2026_3.jpg" alt="Шри-Ланка"></div></div>
+    </div>
+  </div>
+</div><div class="modal" id="yaroslavl-may-2026">
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot red"></span><span class="dot yellow"></span></div>
+      <span class="window-title">yaroslavl-may-2026</span><div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">май 2026</div>
+      <h2>Ярославль</h2>
+      <p class="impression">Не рекомендую. Остался без связи.</p>
+      <div class="photo-grid"><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__yaroslavl_2026_1.jpg" alt="Ярославль"></div><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__yaroslavl_2026_2.jpg" alt="Ярославль"></div><div class="travel-photo"><img src="travel-images/_πΓÑΦÑßΓó__yaroslavl_2026_3.jpg" alt="Ярославль"></div></div>
+    </div>
+  </div>
+</div><div class="actions"><a class="btn secondary" href="index.html">← На главную</a></div></main><footer class="footer"><span>© 2026 Danamil</span><span>personal site</span></footer></div>
+<script>
+document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>{const m=document.getElementById(b.dataset.modal);if(m)m.classList.add("active")}));
+document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("active")}));
+document.querySelectorAll(".modal-window .dot.red").forEach(d=>d.addEventListener("click",e=>{e.stopPropagation();const m=d.closest(".modal");if(m)m.classList.remove("active")}));
+document.querySelectorAll(".draggable-modal").forEach(w=>{const h=w.querySelector(".draggable-handle");if(!h)return;let drag=false,sx=0,sy=0,sl=0,st=0;h.addEventListener("mousedown",e=>{if(e.target.classList.contains("dot"))return;drag=true;const r=w.getBoundingClientRect();w.style.position="fixed";w.style.left=r.left+"px";w.style.top=r.top+"px";w.style.margin="0";sx=e.clientX;sy=e.clientY;sl=r.left;st=r.top;document.addEventListener("mousemove",move);document.addEventListener("mouseup",stop)});function move(e){if(!drag)return;w.style.left=sl+e.clientX-sx+"px";w.style.top=st+e.clientY-sy+"px"}function stop(){drag=false;document.removeEventListener("mousemove",move);document.removeEventListener("mouseup",stop)}});
+</script>
+</body></html>
