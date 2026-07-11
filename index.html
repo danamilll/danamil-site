@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Артур Виноградов — Danamil</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; }
+
+:root {
+  --text: #f4efe6;
+  --muted: #a5a096;
+  --muted-dark: #6d7078;
+  --line: rgba(255,255,255,.13);
+  --brass: #c4a46a;
+  --shadow: 0 35px 120px rgba(0,0,0,.62);
+  --radius: 28px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Manrope, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(196,164,106,.22), transparent 28%),
+    radial-gradient(circle at 86% 16%, rgba(125,143,184,.16), transparent 26%),
+    radial-gradient(circle at 70% 86%, rgba(143,95,95,.13), transparent 31%),
+    linear-gradient(135deg, #050608, #12151c 54%, #07080a);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size: 46px 46px;
+  opacity: .62;
+  mask-image: linear-gradient(to bottom, #000, transparent 86%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at center, transparent 46%, rgba(0,0,0,.54)),
+    linear-gradient(to bottom, rgba(255,255,255,.04), transparent 18%);
+}
+
+a { color: inherit; }
+button { font: inherit; }
+
+.desktop {
+  position: relative;
+  z-index: 1;
+  width: min(1360px, calc(100% - 34px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 22px 0 44px;
+}
+
+.stage {
+  min-height: calc(100vh - 44px);
+  display: flex;
+  align-items: center;
+  padding-top: 28px;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  animation: rise .8s ease both;
+}
+
+h1 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(54px, 6.7vw, 106px);
+  line-height: .96;
+  letter-spacing: -.06em;
+  font-weight: 800;
+}
+
+.subtitle {
+  max-width: 760px;
+  margin: 34px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.subtitle-line {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(24px, 2.45vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -.04em;
+  font-weight: 600;
+}
+
+.subtitle-line.school { color: var(--brass); }
+
+.main-buttons {
+  max-width: 960px;
+  margin-top: 52px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  position: relative;
+  z-index: 5;
+}
+
+.main-button {
+  width: 170px;
+  min-height: 112px;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 30px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.11), transparent),
+    rgba(255,255,255,.05);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  transition: .24s ease;
+}
+
+.main-button:hover,
+.main-button:focus-visible {
+  transform: translateY(-7px);
+  border-color: rgba(196,164,106,.58);
+  background:
+    linear-gradient(145deg, rgba(196,164,106,.16), transparent),
+    rgba(255,255,255,.075);
+  box-shadow: 0 26px 80px rgba(0,0,0,.38);
+  outline: none;
+}
+
+.main-button-num {
+  color: var(--brass);
+  font: 600 14px "IBM Plex Mono", monospace;
+}
+
+.main-button-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.05em;
+  white-space: nowrap;
+}
+
+.draggable-window {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.10), transparent 38%),
+    rgba(18,20,25,.97);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow);
+  transition:
+    left .42s cubic-bezier(.2,.8,.2,1),
+    top .42s cubic-bezier(.2,.8,.2,1),
+    bottom .42s cubic-bezier(.2,.8,.2,1),
+    width .42s cubic-bezier(.2,.8,.2,1),
+    height .42s cubic-bezier(.2,.8,.2,1),
+    transform .28s ease;
+}
+
+.profile-window {
+  position: fixed;
+  width: min(500px, calc(100vw - 28px));
+  right: 40px;
+  top: clamp(18px, 10vh, 110px);
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+  z-index: 25;
+  animation: windowIn .28s ease both;
+}
+
+.floating-window {
+  position: fixed;
+  width: min(620px, calc(100vw - 28px));
+  z-index: 20;
+  display: none;
+  animation: windowIn .22s ease both;
+}
+
+.floating-window.active { display: block; }
+
+.draggable-window.minimized {
+  position: fixed !important;
+  bottom: 18px !important;
+  top: auto !important;
+  right: auto !important;
+  width: 230px !important;
+  height: 54px !important;
+  min-height: 54px !important;
+  border-radius: 16px;
+  z-index: 90 !important;
+  cursor: pointer;
+}
+
+.draggable-window.minimized .profile-body,
+.draggable-window.minimized .floating-content {
+  display: none;
+}
+
+.draggable-window.minimized .window-top {
+  height: 54px;
+  border-bottom: 0;
+  cursor: pointer;
+}
+
+.window-top {
+  height: 52px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--muted-dark);
+  background: rgba(255,255,255,.035);
+  font: 12px "IBM Plex Mono", monospace;
+  user-select: none;
+  cursor: grab;
+  touch-action: none;
+}
+
+.window-top:active { cursor: grabbing; }
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  min-width: 11px;
+  min-height: 11px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+}
+
+button.dot {
+  cursor: pointer;
+  transition: transform .16s ease;
+}
+
+button.dot:hover { transform: scale(1.16); }
+button.dot:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.dot.empty { background: #3f444b; opacity: .9; }
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #28c840; }
+
+.profile-body { padding: 24px; }
+
+.photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 24px;
+  background: #f4f4f2;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.tags {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.floating-content { padding: 32px; }
+
+.window-label {
+  margin-bottom: 18px;
+  color: var(--brass);
+  font: 600 12px "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+.floating-content h2 {
+  margin: 0 0 18px;
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -.06em;
+  font-weight: 800;
+}
+
+.floating-content p {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.62;
+}
+
+.window-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.window-link,
+.window-ghost {
+  min-height: 54px;
+  padding: 0 22px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 900;
+  transition: .2s ease;
+}
+
+.window-link {
+  color: #090a0d;
+  background: var(--text);
+}
+
+.window-ghost {
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+}
+
+.window-link:hover,
+.window-link:focus-visible,
+.window-ghost:hover,
+.window-ghost:focus-visible {
+  transform: translateY(-2px);
+  outline: none;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes windowIn {
+  from { opacity: 0; transform: translateY(10px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 1180px) {
+  .main-buttons {
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .profile-window {
+    right: 24px;
+    width: min(460px, calc(100vw - 28px));
+  }
+}
+
+@media (max-width: 760px) {
+  .desktop { width: min(100% - 22px, 1360px); }
+  .stage { min-height: auto; padding-top: 64px; }
+  h1 { font-size: 48px; letter-spacing: -.045em; }
+  .subtitle-line { font-size: 23px; }
+  .main-buttons { margin-top: 36px; gap: 12px; }
+  .main-button { min-width: 148px; min-height: 92px; border-radius: 24px; }
+  .main-button-title { font-size: 19px; }
+
+  .profile-window,
+  .floating-window {
+    left: 14px !important;
+    right: auto !important;
+    top: 70px !important;
+    width: calc(100vw - 28px) !important;
+    max-height: calc(100vh - 84px);
+  }
+
+  .floating-content h2 { font-size: 42px; }
+
+  .window-link,
+  .window-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="desktop">
+    <main class="stage">
+      <section class="hero-copy">
+        <h1>Артур Виноградов. Danamil.</h1>
+        <div class="subtitle">
+          <p class="subtitle-line school">RANEPA</p>
+          <p class="subtitle-line">Маркетинг, брендинг, медиа, стратегии.</p>
+        </div>
+
+        <div class="main-buttons">
+          <button class="main-button" type="button" data-open="work">
+            <span class="main-button-num">01</span>
+            <span class="main-button-title">Работа</span>
+          </button>
+          <button class="main-button" type="button" data-open="notes">
+            <span class="main-button-num">02</span>
+            <span class="main-button-title">Заметки</span>
+          </button>
+          <button class="main-button" type="button" data-open="about">
+            <span class="main-button-num">03</span>
+            <span class="main-button-title">Обо мне</span>
+          </button>
+          <button class="main-button" type="button" data-open="travel">
+            <span class="main-button-num">04</span>
+            <span class="main-button-title">Путешествия</span>
+          </button>
+          <button class="main-button" type="button" data-open="contacts">
+            <span class="main-button-num">05</span>
+            <span class="main-button-title">Контакты</span>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section class="profile-window draggable-window" id="window-photo" data-page="photo.html" aria-label="Карточка профиля">
+    <div class="window-top draggable-handle">
+      <div class="dots"><span class="dot empty" aria-hidden="true"></span><button class="dot yellow" type="button" data-action="minimize" aria-label="Свернуть окно"></button><button class="dot green" type="button" data-action="open-page" aria-label="Открыть страницу"></button></div>
+      <span>profile.card</span>
+      <div></div>
+    </div>
+    <div class="profile-body">
+      <div class="photo">
+        <img src="profile-photo.png?v=9" alt="Артур Виноградов" width="1122" height="1402">
+      </div>
+      <div class="tags">
+        <span class="tag">marketing</span>
+        <span class="tag">branding</span>
+        <span class="tag">media</span>
+        <span class="tag">strategy</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="floating-window draggable-window" id="window-work" data-page="work.html" data-initial-left="11%" data-initial-top="17%" style="left:11%;top:17%">
+    <div class="window-top draggable-handle">
+      <div class="dots"><button class="dot red" type="button" data-action="close" aria-label="Закрыть окно"></button><button class="dot yellow" type="button" data-action="minimize" aria-label="Свернуть окно"></button><button class="dot green" type="button" data-action="open-page" aria-label="Открыть страницу"></button></div>
+      <span>work.html</span><div></div>
+    </div>
+    <div class="floating-content">
+      <div class="window-label">01 / work</div>
+      <h2>Работа</h2>
+      <p>ноябрь 2025 — н.в.</p>
+      <div class="window-actions">
+        <a class="window-link" href="work.html">Перейти на страницу →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="floating-window draggable-window" id="window-notes" data-page="notes.html" data-initial-left="21%" data-initial-top="23%" style="left:21%;top:23%">
+    <div class="window-top draggable-handle">
+      <div class="dots"><button class="dot red" type="button" data-action="close" aria-label="Закрыть окно"></button><button class="dot yellow" type="button" data-action="minimize" aria-label="Свернуть окно"></button><button class="dot green" type="button" data-action="open-page" aria-label="Открыть страницу"></button></div>
+      <span>notes.html</span><div></div>
+    </div>
+    <div class="floating-content">
+      <div class="window-label">02 / notes</div>
+      <h2>Заметки</h2>
+      <div class="window-actions">
+        <a class="window-link" href="notes.html">Перейти на страницу →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="floating-window draggable-window" id="window-about" data-page="about.html" data-initial-left="31%" data-initial-top="19%" style="left:31%;top:19%">
+    <div class="window-top draggable-handle">
+      <div class="dots"><button class="dot red" type="button" data-action="close" aria-label="Закрыть окно"></button><button class="dot yellow" type="button" data-action="minimize" aria-label="Свернуть окно"></button><button class="dot green" type="button" data-action="open-page" aria-label="Открыть страницу"></button></div>
+      <span>about.html</span><div></div>
+    </div>
+    <div class="floating-content">
+      <div class="window-label">03 / about</div>
+      <h2>Обо мне</h2>
+      <div class="window-actions">
+        <a class="window-link" href="about.html">Перейти на страницу →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="floating-window draggable-window" id="window-travel" data-page="travel.html" data-initial-left="40%" data-initial-top="27%" style="left:40%;top:27%">
+    <div class="window-top draggable-handle">
+      <div class="dots"><button class="dot red" type="button" data-action="close" aria-label="Закрыть окно"></button><button class="dot yellow" type="button" data-action="minimize" aria-label="Свернуть окно"></button><button class="dot green" type="button" data-action="open-page" aria-label="Открыть страницу"></button></div>
+      <span>travel.html</span><div></div>
+    </div>
+    <div class="floating-content">
+      <div class="window-label">04 / travel</div>
+      <h2>Путешествия</h2>
+      <div class="window-actions">
+        <a class="window-link" href="travel.html">Перейти на страницу →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="floating-window draggable-window" id="window-contacts" data-page="contacts.html" data-initial-left="49%" data-initial-top="21%" style="left:49%;top:21%">
+    <div class="window-top draggable-handle">
+      <div class="dots"><button class="dot red" type="button" data-action="close" aria-label="Закрыть окно"></button><button class="dot yellow" type="button" data-action="minimize" aria-label="Свернуть окно"></button><button class="dot green" type="button" data-action="open-page" aria-label="Открыть страницу"></button></div>
+      <span>contacts.html</span><div></div>
+    </div>
+    <div class="floating-content">
+      <div class="window-label">05 / contacts</div>
+      <h2>Контакты</h2>
+      <div class="window-actions">
+        <a class="window-link" href="contacts.html">Перейти на страницу →</a>
+        <a class="window-ghost" href="https://t.me/danamil">Telegram</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+const windows = [...document.querySelectorAll(".draggable-window")];
+let highestZ = 80;
+
+function activeFloatingWindows() {
+  return windows.filter((windowElement) =>
+    windowElement.classList.contains("active") ||
+    windowElement.classList.contains("minimized")
+  );
+}
+
+function layoutMinimizedWindows() {
+  const minimized = windows.filter((windowElement) =>
+    windowElement.classList.contains("minimized")
+  );
+
+  minimized.forEach((windowElement, index) => {
+    const slotWidth = Math.min(246, window.innerWidth - 36);
+    const columns = Math.max(1, Math.floor((window.innerWidth - 36) / slotWidth));
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+
+    windowElement.style.left = `${18 + column * slotWidth}px`;
+    windowElement.style.bottom = `${18 + row * 66}px`;
+  });
+}
+
+function resetFloatingWindows() {
+  document.querySelectorAll(".floating-window").forEach((windowElement) => {
+    windowElement.classList.remove("active", "minimized", "closed");
+    windowElement.style.display = "none";
+    windowElement.style.left = windowElement.dataset.initialLeft || "";
+    windowElement.style.top = windowElement.dataset.initialTop || "";
+    windowElement.style.right = "auto";
+    windowElement.style.bottom = "auto";
+    windowElement.style.position = "fixed";
+  });
+  layoutMinimizedWindows();
+}
+
+window.addEventListener("pageshow", resetFloatingWindows);
+window.addEventListener("resize", layoutMinimizedWindows);
+
+document.querySelectorAll("[data-open]").forEach((button) => {
+  button.addEventListener("click", () => {
+    openWindow(document.getElementById(`window-${button.dataset.open}`));
+  });
+});
+
+windows.forEach((windowElement) => {
+  windowElement.querySelectorAll("[data-action]").forEach((control) => {
+    control.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const action = control.dataset.action;
+      if (action === "close") closeWindow(windowElement);
+      if (action === "minimize") minimizeWindow(windowElement);
+      if (action === "open-page" && windowElement.dataset.page) {
+        location.href = windowElement.dataset.page;
+      }
+    });
+  });
+
+  windowElement.addEventListener("pointerdown", () => {
+    windowElement.style.zIndex = ++highestZ;
+  });
+
+  windowElement.addEventListener("click", () => {
+    if (windowElement.classList.contains("minimized")) restoreWindow(windowElement);
+  });
+
+  const handle = windowElement.querySelector(".draggable-handle");
+  let pointerId = null;
+  let startX = 0;
+  let startY = 0;
+  let startLeft = 0;
+  let startTop = 0;
+
+  handle.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("button") || windowElement.classList.contains("minimized")) return;
+
+    pointerId = event.pointerId;
+    handle.setPointerCapture(pointerId);
+
+    const rect = windowElement.getBoundingClientRect();
+    windowElement.style.position = "fixed";
+    windowElement.style.left = `${rect.left}px`;
+    windowElement.style.top = `${rect.top}px`;
+    windowElement.style.right = "auto";
+    windowElement.style.bottom = "auto";
+    windowElement.style.zIndex = ++highestZ;
+
+    startX = event.clientX;
+    startY = event.clientY;
+    startLeft = rect.left;
+    startTop = rect.top;
+  });
+
+  handle.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== pointerId) return;
+    moveWindow(
+      windowElement,
+      startLeft + event.clientX - startX,
+      startTop + event.clientY - startY
+    );
+  });
+
+  function stopDragging(event) {
+    if (event.pointerId !== pointerId) return;
+    if (handle.hasPointerCapture(pointerId)) handle.releasePointerCapture(pointerId);
+    pointerId = null;
+  }
+
+  handle.addEventListener("pointerup", stopDragging);
+  handle.addEventListener("pointercancel", stopDragging);
+});
+
+function openWindow(windowElement) {
+  if (!windowElement) return;
+
+  windowElement.classList.remove("closed", "minimized");
+  windowElement.classList.add("active");
+  windowElement.style.display = "block";
+  windowElement.style.bottom = "auto";
+  windowElement.style.right = "auto";
+  windowElement.style.zIndex = ++highestZ;
+
+  if (!windowElement.style.left || windowElement.style.left === "auto") {
+    windowElement.style.left = windowElement.dataset.initialLeft || "80px";
+  }
+  if (!windowElement.style.top || windowElement.style.top === "auto") {
+    windowElement.style.top = windowElement.dataset.initialTop || "80px";
+  }
+
+  layoutMinimizedWindows();
+}
+
+function closeWindow(windowElement) {
+  windowElement.classList.remove("active", "minimized");
+  windowElement.classList.add("closed");
+  windowElement.style.display = "none";
+  layoutMinimizedWindows();
+}
+
+function moveWindow(windowElement, left, top) {
+  const maxLeft = Math.max(8, window.innerWidth - windowElement.offsetWidth - 8);
+  const maxTop = Math.max(8, window.innerHeight - 64);
+
+  windowElement.style.left = `${Math.max(8, Math.min(left, maxLeft))}px`;
+  windowElement.style.top = `${Math.max(8, Math.min(top, maxTop))}px`;
+}
+
+function minimizeWindow(windowElement) {
+  const rect = windowElement.getBoundingClientRect();
+  windowElement.dataset.restoreLeft = `${rect.left}px`;
+  windowElement.dataset.restoreTop = `${rect.top}px`;
+
+  windowElement.classList.remove("closed", "active");
+  windowElement.classList.add("minimized");
+  windowElement.style.display = "block";
+  windowElement.style.position = "fixed";
+  windowElement.style.right = "auto";
+  windowElement.style.top = "auto";
+  windowElement.style.zIndex = ++highestZ;
+
+  layoutMinimizedWindows();
+}
+
+function restoreWindow(windowElement) {
+  windowElement.classList.remove("minimized", "closed");
+  windowElement.classList.add("active");
+  windowElement.style.position = "fixed";
+  windowElement.style.left = windowElement.dataset.restoreLeft || windowElement.dataset.initialLeft || "80px";
+  windowElement.style.top = windowElement.dataset.restoreTop || windowElement.dataset.initialTop || "80px";
+  windowElement.style.bottom = "auto";
+  windowElement.style.right = "auto";
+  windowElement.style.display = "block";
+  windowElement.style.zIndex = ++highestZ;
+
+  moveWindow(
+    windowElement,
+    parseFloat(windowElement.style.left) || 80,
+    parseFloat(windowElement.style.top) || 80
+  );
+  layoutMinimizedWindows();
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+
+  const topWindow = activeFloatingWindows()
+    .filter((windowElement) => windowElement.classList.contains("floating-window"))
+    .sort((a, b) => Number(b.style.zIndex || 0) - Number(a.style.zIndex || 0))[0];
+
+  if (topWindow) closeWindow(topWindow);
+});
+</script>
+</body>
+</html>

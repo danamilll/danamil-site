@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заметки — Danamil</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; }
+
+:root {
+  --text: #f4efe6;
+  --muted: #a5a096;
+  --muted-dark: #6d7078;
+  --line: rgba(255,255,255,.13);
+  --brass: #c4a46a;
+  --surface: rgba(18,20,25,.78);
+  --shadow: 0 35px 120px rgba(0,0,0,.62);
+  --radius: 28px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Manrope, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(196,164,106,.22), transparent 28%),
+    radial-gradient(circle at 86% 16%, rgba(125,143,184,.16), transparent 26%),
+    radial-gradient(circle at 70% 86%, rgba(143,95,95,.13), transparent 31%),
+    linear-gradient(135deg, #050608, #12151c 54%, #07080a);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size: 46px 46px;
+  opacity: .62;
+  mask-image: linear-gradient(to bottom, #000, transparent 86%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at center, transparent 46%, rgba(0,0,0,.54)),
+    linear-gradient(to bottom, rgba(255,255,255,.04), transparent 18%);
+}
+
+a { color: inherit; }
+button { font: inherit; }
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, calc(100% - 34px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 22px 0 56px;
+}
+
+.menubar {
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(12,14,18,.56);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 70px rgba(0,0,0,.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  animation: fadeDown .7s ease both;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  text-decoration: none;
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 30px rgba(196,164,106,.72);
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nav a {
+  padding: 8px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  outline: none;
+}
+
+.hero {
+  padding: 82px 0 36px;
+  animation: rise .8s ease both;
+}
+
+.kicker {
+  margin-bottom: 18px;
+  color: var(--brass);
+  font: 600 12px "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(58px, 8vw, 118px);
+  line-height: .93;
+  letter-spacing: -.065em;
+  font-weight: 800;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.10), transparent 38%),
+    var(--surface);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow);
+}
+
+.window-top {
+  height: 52px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--muted-dark);
+  background: rgba(255,255,255,.035);
+  font: 12px "IBM Plex Mono", monospace;
+  user-select: none;
+}
+
+.window-top.draggable-handle {
+  cursor: grab;
+  touch-action: none;
+}
+
+.window-top.draggable-handle:active { cursor: grabbing; }
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  min-width: 11px;
+  min-height: 11px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+  background: #30343d;
+}
+
+button.dot {
+  cursor: pointer;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+button.dot:hover { transform: scale(1.16); }
+button.dot:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #28c840; }
+.dot.empty { background: #3f444b; opacity: .9; }
+
+.window-title { justify-self: center; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.btn {
+  min-height: 54px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--text);
+  color: #090a0d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 900;
+  transition: .2s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+  background: var(--brass);
+  outline: none;
+}
+
+.btn.secondary {
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+}
+
+.footer {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted-dark);
+  font: 12px "IBM Plex Mono", monospace;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 860px) {
+  .menubar { justify-content: center; }
+  .nav { display: none; }
+  .hero { padding-top: 58px; }
+  .footer { display: grid; gap: 10px; }
+}
+
+@media (max-width: 520px) {
+  .page { width: min(100% - 22px, 1240px); }
+  h1 { font-size: 48px; letter-spacing: -.045em; }
+  .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    
+<header class="menubar">
+  <a class="brand" href="index.html">
+    <span class="brand-dot"></span>
+    <span>danamil.ru</span>
+  </a>
+  <nav class="nav" aria-label="Основная навигация">
+    <a href="work.html">Работа</a>
+    <a href="notes.html">Заметки</a>
+    <a href="about.html">Обо мне</a>
+    <a href="travel.html">Путешествия</a>
+    <a href="contacts.html">Контакты</a>
+  </nav>
+</header>
+
+    <main>
+      <section class="hero">
+        <div class="kicker">02 / notes</div>
+        <h1>Заметки</h1>
+      </section>
+      <div class="actions">
+        <a class="btn secondary" href="index.html">← На главную</a>
+      </div>
+    </main>
+    
+<footer class="footer">
+  <span>© 2026 Danamil</span>
+  <span>personal site</span>
+</footer>
+
+  </div>
+</body>
+</html>
