@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Путешествия — Danamil</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+* { box-sizing: border-box; }
+
+:root {
+  --text: #f4efe6;
+  --muted: #a5a096;
+  --muted-dark: #6d7078;
+  --line: rgba(255,255,255,.13);
+  --brass: #c4a46a;
+  --surface: rgba(18,20,25,.78);
+  --shadow: 0 35px 120px rgba(0,0,0,.62);
+  --radius: 28px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Manrope, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 14% 18%, rgba(196,164,106,.22), transparent 28%),
+    radial-gradient(circle at 86% 16%, rgba(125,143,184,.16), transparent 26%),
+    radial-gradient(circle at 70% 86%, rgba(143,95,95,.13), transparent 31%),
+    linear-gradient(135deg, #050608, #12151c 54%, #07080a);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size: 46px 46px;
+  opacity: .62;
+  mask-image: linear-gradient(to bottom, #000, transparent 86%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at center, transparent 46%, rgba(0,0,0,.54)),
+    linear-gradient(to bottom, rgba(255,255,255,.04), transparent 18%);
+}
+
+a { color: inherit; }
+button { font: inherit; }
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, calc(100% - 34px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 22px 0 56px;
+}
+
+.menubar {
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(12,14,18,.56);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 70px rgba(0,0,0,.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  animation: fadeDown .7s ease both;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  text-decoration: none;
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 30px rgba(196,164,106,.72);
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nav a {
+  padding: 8px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  outline: none;
+}
+
+.hero {
+  padding: 82px 0 36px;
+  animation: rise .8s ease both;
+}
+
+.kicker {
+  margin-bottom: 18px;
+  color: var(--brass);
+  font: 600 12px "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(58px, 8vw, 118px);
+  line-height: .93;
+  letter-spacing: -.065em;
+  font-weight: 800;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.10), transparent 38%),
+    var(--surface);
+  backdrop-filter: blur(24px);
+  box-shadow: var(--shadow);
+}
+
+.window-top {
+  height: 52px;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 16px;
+  color: var(--muted-dark);
+  background: rgba(255,255,255,.035);
+  font: 12px "IBM Plex Mono", monospace;
+  user-select: none;
+}
+
+.window-top.draggable-handle {
+  cursor: grab;
+  touch-action: none;
+}
+
+.window-top.draggable-handle:active { cursor: grabbing; }
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  min-width: 11px;
+  min-height: 11px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+  background: #30343d;
+}
+
+button.dot {
+  cursor: pointer;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+button.dot:hover { transform: scale(1.16); }
+button.dot:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
+
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #28c840; }
+.dot.empty { background: #3f444b; opacity: .9; }
+
+.window-title { justify-self: center; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.btn {
+  min-height: 54px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--text);
+  color: #090a0d;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 900;
+  transition: .2s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+  background: var(--brass);
+  outline: none;
+}
+
+.btn.secondary {
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+}
+
+.footer {
+  margin-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted-dark);
+  font: 12px "IBM Plex Mono", monospace;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 860px) {
+  .menubar { justify-content: center; }
+  .nav { display: none; }
+  .hero { padding-top: 58px; }
+  .footer { display: grid; gap: 10px; }
+}
+
+@media (max-width: 520px) {
+  .page { width: min(100% - 22px, 1240px); }
+  h1 { font-size: 48px; letter-spacing: -.045em; }
+  .btn { width: 100%; }
+}
+
+.trip-list {
+  display: grid;
+  gap: 14px;
+}
+
+.trip {
+  width: 100%;
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 28px;
+  background: rgba(255,255,255,.045);
+  color: inherit;
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  transition: .24s ease;
+}
+
+.trip:hover,
+.trip:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(196,164,106,.48);
+  background: rgba(255,255,255,.065);
+  outline: none;
+}
+
+.trip-date {
+  color: var(--brass);
+  font: 13px "IBM Plex Mono", monospace;
+}
+
+.trip h2 {
+  margin: 0 0 6px;
+  font-size: clamp(26px, 3.3vw, 44px);
+  line-height: 1;
+  letter-spacing: -.06em;
+}
+
+.trip p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.trip-arrow {
+  color: var(--muted);
+  font-size: 28px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  pointer-events: none;
+}
+
+.modal.active,
+.modal.minimized {
+  display: block;
+}
+
+.modal-window {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  width: min(1220px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  pointer-events: auto;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.10), transparent 38%),
+    rgba(18,20,25,.985);
+  box-shadow: var(--shadow);
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.modal-window:focus-within {
+  border-color: rgba(196,164,106,.34);
+}
+
+.modal .window-top {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: rgba(28,30,36,.96);
+  backdrop-filter: blur(22px);
+}
+
+.modal.minimized .modal-window {
+  width: 270px;
+  height: 56px;
+  max-height: 56px;
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.modal.minimized .window-top {
+  height: 56px;
+  border-bottom: 0;
+}
+
+.modal.minimized .modal-content { display: none; }
+
+.modal-content { padding: 34px; }
+
+.modal-content h2 {
+  margin: 0 0 18px;
+  font-size: clamp(40px, 5vw, 70px);
+  line-height: .95;
+  letter-spacing: -.06em;
+}
+
+.modal-date {
+  margin-bottom: 16px;
+  color: var(--brass);
+  font: 13px "IBM Plex Mono", monospace;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.impression {
+  margin: 0;
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.photo-grid {
+  margin-top: 28px;
+  columns: 3 300px;
+  column-gap: 16px;
+}
+
+.travel-photo {
+  width: 100%;
+  margin: 0 0 16px;
+  break-inside: avoid;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 20px;
+  background: #0e0f12;
+}
+
+.travel-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  background: #0e0f12;
+}
+
+@media (max-width: 760px) {
+  .trip { grid-template-columns: 1fr auto; }
+  .trip-date { grid-column: 1 / -1; }
+  .trip p { padding-right: 6px; }
+  .modal-content { padding: 22px; }
+  .photo-grid { columns: 1; }
+  .modal-window {
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+  }
+}
+</style>
+</head>
+<body>
+  <div class="page">
+    
+<header class="menubar">
+  <a class="brand" href="index.html">
+    <span class="brand-dot"></span>
+    <span>danamil.ru</span>
+  </a>
+  <nav class="nav" aria-label="Основная навигация">
+    <a href="work.html">Работа</a>
+    <a href="notes.html">Заметки</a>
+    <a href="about.html">Обо мне</a>
+    <a href="travel.html">Путешествия</a>
+    <a href="contacts.html">Контакты</a>
+  </nav>
+</header>
+
+    <main>
+      <section class="hero">
+        <div class="kicker">04 / travel</div>
+        <h1>Путешествия</h1>
+      </section>
+
+      <section class="trip-list" aria-label="Список путешествий">
+        
+<button class="trip" type="button" data-modal="spb-nov-2024" aria-controls="spb-nov-2024">
+  <span class="trip-date">ноябрь 2024</span>
+  <span>
+    <h2>Санкт-Петербург</h2>
+    <p>Возможно, именно эта поездка стала причиной, почему я начал так часто ездить в Питер.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="erevan-mar-2025" aria-controls="erevan-mar-2025">
+  <span class="trip-date">март 2025</span>
+  <span>
+    <h2>Ереван</h2>
+    <p>Впервые был в Армении. Очень понравилось.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="istanbul-jul-2025" aria-controls="istanbul-jul-2025">
+  <span class="trip-date">июль 2025</span>
+  <span>
+    <h2>Стамбул</h2>
+    <p>Отличная остановка перед Черногорией и Сербией.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="montenegro-jul-2025" aria-controls="montenegro-jul-2025">
+  <span class="trip-date">июль 2025</span>
+  <span>
+    <h2>Черногория: Котор, Будва, Тиват</h2>
+    <p>Наверное, лучшая поездка в жизни. Полтора месяца у моря, городов и нормального ощущения свободы.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="belgrade-aug-2025" aria-controls="belgrade-aug-2025">
+  <span class="trip-date">август 2025</span>
+  <span>
+    <h2>Белград</h2>
+    <p>Очень понравились город и люди. Рекомендую.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="spb-aug-2025" aria-controls="spb-aug-2025">
+  <span class="trip-date">август 2025</span>
+  <span>
+    <h2>Санкт-Петербург</h2>
+    <p>Встретился с друзьями. Смак.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="nn-oct-2025" aria-controls="nn-oct-2025">
+  <span class="trip-date">октябрь 2025</span>
+  <span>
+    <h2>Нижний Новгород</h2>
+    <p>Недооценённый город. И очень вкусная еда.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="istanbul-nov-2025" aria-controls="istanbul-nov-2025">
+  <span class="trip-date">ноябрь 2025</span>
+  <span>
+    <h2>Стамбул</h2>
+    <p>Попал случайно. Было круто.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="armenia-dec-2025" aria-controls="armenia-dec-2025">
+  <span class="trip-date">декабрь 2025</span>
+  <span>
+    <h2>Ереван / Гюмри</h2>
+    <p>Прилетал на Новый год. Гюмри — хороший город.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="srilanka-feb-2026" aria-controls="srilanka-feb-2026">
+  <span class="trip-date">февраль 2026</span>
+  <span>
+    <h2>Шри-Ланка</h2>
+    <p>Грелся и научился сёрфить.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+<button class="trip" type="button" data-modal="yaroslavl-may-2026" aria-controls="yaroslavl-may-2026">
+  <span class="trip-date">май 2026</span>
+  <span>
+    <h2>Ярославль</h2>
+    <p>Не рекомендую. Остался без связи.</p>
+  </span>
+  <span class="trip-arrow" aria-hidden="true">→</span>
+</button>
+
+      </section>
+
+      <div class="actions">
+        <a class="btn secondary" href="index.html">← На главную</a>
+      </div>
+    </main>
+    
+<footer class="footer">
+  <span>© 2026 Danamil</span>
+  <span>personal site</span>
+</footer>
+
+  </div>
+
+  
+<div class="modal" id="spb-nov-2024" role="dialog" aria-modal="true" aria-labelledby="spb-nov-2024-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">spb-nov-2024</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">ноябрь 2024</div>
+      <h2 id="spb-nov-2024-title">Санкт-Петербург</h2>
+      <p class="impression">Возможно, именно эта поездка стала причиной, почему я начал так часто ездить в Питер.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/spb-nov-2024-1.jpg?v=10" alt="Санкт-Петербург" width="1280" height="960" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/spb-nov-2024-2.jpg?v=10" alt="Санкт-Петербург" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="erevan-mar-2025" role="dialog" aria-modal="true" aria-labelledby="erevan-mar-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">erevan-mar-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">март 2025</div>
+      <h2 id="erevan-mar-2025-title">Ереван</h2>
+      <p class="impression">Впервые был в Армении. Очень понравилось.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/erevan-mar-2025-1.jpg?v=10" alt="Ереван" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/erevan-mar-2025-2.jpg?v=10" alt="Ереван" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/erevan-mar-2025-3.jpg?v=10" alt="Ереван" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="istanbul-jul-2025" role="dialog" aria-modal="true" aria-labelledby="istanbul-jul-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">istanbul-jul-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">июль 2025</div>
+      <h2 id="istanbul-jul-2025-title">Стамбул</h2>
+      <p class="impression">Отличная остановка перед Черногорией и Сербией.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/istanbul-jul-2025-1.jpg?v=10" alt="Стамбул" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/istanbul-jul-2025-2.jpg?v=10" alt="Стамбул" width="720" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/istanbul-jul-2025-3.jpg?v=10" alt="Стамбул" width="1280" height="960" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="montenegro-jul-2025" role="dialog" aria-modal="true" aria-labelledby="montenegro-jul-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">montenegro-jul-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">июль 2025</div>
+      <h2 id="montenegro-jul-2025-title">Черногория: Котор, Будва, Тиват</h2>
+      <p class="impression">Наверное, лучшая поездка в жизни. Полтора месяца у моря, городов и нормального ощущения свободы.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/montenegro-jul-2025-1.jpg?v=10" alt="Черногория: Котор, Будва, Тиват" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/montenegro-jul-2025-2.jpg?v=10" alt="Черногория: Котор, Будва, Тиват" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/montenegro-jul-2025-3.jpg?v=10" alt="Черногория: Котор, Будва, Тиват" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="belgrade-aug-2025" role="dialog" aria-modal="true" aria-labelledby="belgrade-aug-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">belgrade-aug-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">август 2025</div>
+      <h2 id="belgrade-aug-2025-title">Белград</h2>
+      <p class="impression">Очень понравились город и люди. Рекомендую.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/belgrade-aug-2025-1.jpg?v=10" alt="Белград" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/belgrade-aug-2025-2.jpg?v=10" alt="Белград" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/belgrade-aug-2025-3.jpg?v=10" alt="Белград" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="spb-aug-2025" role="dialog" aria-modal="true" aria-labelledby="spb-aug-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">spb-aug-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">август 2025</div>
+      <h2 id="spb-aug-2025-title">Санкт-Петербург</h2>
+      <p class="impression">Встретился с друзьями. Смак.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/spb-aug-2025-1.jpg?v=10" alt="Санкт-Петербург" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/spb-aug-2025-2.jpg?v=10" alt="Санкт-Петербург" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/spb-aug-2025-3.jpg?v=10" alt="Санкт-Петербург" width="1280" height="960" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="nn-oct-2025" role="dialog" aria-modal="true" aria-labelledby="nn-oct-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">nn-oct-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">октябрь 2025</div>
+      <h2 id="nn-oct-2025-title">Нижний Новгород</h2>
+      <p class="impression">Недооценённый город. И очень вкусная еда.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/nn-oct-2025-1.jpg?v=10" alt="Нижний Новгород" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/nn-oct-2025-2.jpg?v=10" alt="Нижний Новгород" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/nn-oct-2025-3.jpg?v=10" alt="Нижний Новгород" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="istanbul-nov-2025" role="dialog" aria-modal="true" aria-labelledby="istanbul-nov-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">istanbul-nov-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">ноябрь 2025</div>
+      <h2 id="istanbul-nov-2025-title">Стамбул</h2>
+      <p class="impression">Попал случайно. Было круто.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/istanbul-nov-2025-1.jpg?v=10" alt="Стамбул" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/istanbul-nov-2025-2.jpg?v=10" alt="Стамбул" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/istanbul-nov-2025-3.jpg?v=10" alt="Стамбул" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="armenia-dec-2025" role="dialog" aria-modal="true" aria-labelledby="armenia-dec-2025-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">armenia-dec-2025</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">декабрь 2025</div>
+      <h2 id="armenia-dec-2025-title">Ереван / Гюмри</h2>
+      <p class="impression">Прилетал на Новый год. Гюмри — хороший город.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/armenia-dec-2025-1.jpg?v=10" alt="Ереван / Гюмри" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/armenia-dec-2025-2.jpg?v=10" alt="Ереван / Гюмри" width="1280" height="720" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/armenia-dec-2025-3.jpg?v=10" alt="Ереван / Гюмри" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="srilanka-feb-2026" role="dialog" aria-modal="true" aria-labelledby="srilanka-feb-2026-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">srilanka-feb-2026</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">февраль 2026</div>
+      <h2 id="srilanka-feb-2026-title">Шри-Ланка</h2>
+      <p class="impression">Грелся и научился сёрфить.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/srilanka-feb-2026-1.jpg?v=10" alt="Шри-Ланка" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/srilanka-feb-2026-2.jpg?v=10" alt="Шри-Ланка" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/srilanka-feb-2026-3.jpg?v=10" alt="Шри-Ланка" width="1280" height="960" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="yaroslavl-may-2026" role="dialog" aria-modal="true" aria-labelledby="yaroslavl-may-2026-title" hidden>
+  <div class="modal-window draggable-modal">
+    <div class="window-top draggable-handle">
+      <div class="dots">
+        <button class="dot red" type="button" data-close aria-label="Закрыть окно"></button>
+        <button class="dot yellow" type="button" data-minimize aria-label="Свернуть окно"></button>
+      </div>
+      <span class="window-title">yaroslavl-may-2026</span>
+      <div></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-date">май 2026</div>
+      <h2 id="yaroslavl-may-2026-title">Ярославль</h2>
+      <p class="impression">Не рекомендую. Остался без связи.</p>
+      <div class="photo-grid">
+        <figure class="travel-photo"><img data-src="travel-images/yaroslavl-may-2026-1.jpg?v=10" alt="Ярославль" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/yaroslavl-may-2026-2.jpg?v=10" alt="Ярославль" width="960" height="1280" loading="lazy" decoding="async"></figure><figure class="travel-photo"><img data-src="travel-images/yaroslavl-may-2026-3.jpg?v=10" alt="Ярославль" width="960" height="1280" loading="lazy" decoding="async"></figure>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+const MAX_OPEN_WINDOWS = 6;
+const modalTriggers = document.querySelectorAll("[data-modal]");
+const modals = [...document.querySelectorAll(".modal")];
+let highestZ = 100;
+let openOrder = [];
+
+function hydrateImages(modal) {
+  modal.querySelectorAll("img[data-src]").forEach((image) => {
+    image.src = image.dataset.src.replace("?v=10", "?v=10");
+    image.removeAttribute("data-src");
+  });
+}
+
+function visibleModals() {
+  return modals.filter((modal) => !modal.hidden);
+}
+
+function bringToFront(modal) {
+  modal.style.zIndex = ++highestZ;
+}
+
+function removeFromOpenOrder(modal) {
+  openOrder = openOrder.filter((item) => item !== modal);
+}
+
+function layoutMinimizedWindows() {
+  const minimized = modals.filter((modal) => modal.classList.contains("minimized") && !modal.hidden);
+  const slotWidth = 286;
+  const columns = Math.max(1, Math.floor((window.innerWidth - 28) / slotWidth));
+
+  minimized.forEach((modal, index) => {
+    const windowElement = modal.querySelector(".modal-window");
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+    windowElement.style.left = `${14 + column * slotWidth}px`;
+    windowElement.style.top = "auto";
+    windowElement.style.bottom = `${14 + row * 68}px`;
+  });
+}
+
+function placeWindow(modal) {
+  const windowElement = modal.querySelector(".modal-window");
+  const visibleCount = visibleModals().filter((item) => item !== modal).length;
+  const offset = (visibleCount % MAX_OPEN_WINDOWS) * 28;
+  const rectWidth = Math.min(1220, window.innerWidth - 32);
+  const rectHeight = Math.min(window.innerHeight - 32, 900);
+  const maxLeft = Math.max(10, window.innerWidth - rectWidth - 10);
+  const maxTop = Math.max(10, window.innerHeight - Math.min(rectHeight, window.innerHeight - 20) - 10);
+
+  windowElement.style.left = `${Math.min(18 + offset, maxLeft)}px`;
+  windowElement.style.top = `${Math.min(18 + offset, Math.max(18, maxTop + offset))}px`;
+  windowElement.style.bottom = "auto";
+}
+
+function openModal(modal, trigger) {
+  if (!modal) return;
+
+  if (modal.hidden && visibleModals().length >= MAX_OPEN_WINDOWS) {
+    const oldest = openOrder.find((item) => !item.hidden);
+    if (oldest) closeModal(oldest, false);
+  }
+
+  modal.dataset.triggerId = trigger?.dataset.modal || modal.dataset.triggerId || "";
+  hydrateImages(modal);
+  modal.hidden = false;
+  modal.classList.remove("minimized");
+  modal.classList.add("active");
+  removeFromOpenOrder(modal);
+  openOrder.push(modal);
+  placeWindow(modal);
+  bringToFront(modal);
+  layoutMinimizedWindows();
+
+  const firstControl = modal.querySelector("button");
+  if (firstControl) firstControl.focus({ preventScroll: true });
+}
+
+function closeModal(modal, restoreFocus = true) {
+  if (!modal) return;
+  modal.classList.remove("active", "minimized");
+  modal.hidden = true;
+  removeFromOpenOrder(modal);
+
+  const windowElement = modal.querySelector(".modal-window");
+  windowElement.style.left = "";
+  windowElement.style.top = "";
+  windowElement.style.bottom = "";
+
+  if (restoreFocus && modal.dataset.triggerId) {
+    document.querySelector(`[data-modal="${modal.dataset.triggerId}"]`)?.focus({ preventScroll: true });
+  }
+  layoutMinimizedWindows();
+}
+
+function minimizeModal(modal) {
+  if (!modal) return;
+  const windowElement = modal.querySelector(".modal-window");
+  modal.dataset.restoreLeft = windowElement.style.left || `${windowElement.getBoundingClientRect().left}px`;
+  modal.dataset.restoreTop = windowElement.style.top || `${windowElement.getBoundingClientRect().top}px`;
+  modal.classList.remove("active");
+  modal.classList.add("minimized");
+  modal.hidden = false;
+  bringToFront(modal);
+  layoutMinimizedWindows();
+}
+
+function restoreModal(modal) {
+  if (!modal) return;
+  const windowElement = modal.querySelector(".modal-window");
+  modal.classList.remove("minimized");
+  modal.classList.add("active");
+  windowElement.style.left = modal.dataset.restoreLeft || "18px";
+  windowElement.style.top = modal.dataset.restoreTop || "18px";
+  windowElement.style.bottom = "auto";
+  bringToFront(modal);
+  layoutMinimizedWindows();
+}
+
+modalTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const modal = document.getElementById(trigger.dataset.modal);
+    if (!modal) return;
+    if (!modal.hidden && modal.classList.contains("minimized")) restoreModal(modal);
+    else if (!modal.hidden) bringToFront(modal);
+    else openModal(modal, trigger);
+  });
+});
+
+modals.forEach((modal) => {
+  const windowElement = modal.querySelector(".modal-window");
+  const handle = modal.querySelector(".draggable-handle");
+
+  modal.querySelector("[data-close]").addEventListener("click", () => closeModal(modal));
+  modal.querySelector("[data-minimize]").addEventListener("click", () => minimizeModal(modal));
+
+  windowElement.addEventListener("pointerdown", () => bringToFront(modal));
+  windowElement.addEventListener("click", () => {
+    if (modal.classList.contains("minimized")) restoreModal(modal);
+  });
+
+  let pointerId = null;
+  let startX = 0;
+  let startY = 0;
+  let startLeft = 0;
+  let startTop = 0;
+
+  function keepInsideViewport(left, top) {
+    const rect = windowElement.getBoundingClientRect();
+    const maxLeft = Math.max(8, window.innerWidth - rect.width - 8);
+    const maxTop = Math.max(8, window.innerHeight - 64);
+    return {
+      left: Math.max(8, Math.min(left, maxLeft)),
+      top: Math.max(8, Math.min(top, maxTop))
+    };
+  }
+
+  handle.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("button") || modal.classList.contains("minimized")) return;
+
+    pointerId = event.pointerId;
+    handle.setPointerCapture(pointerId);
+    const rect = windowElement.getBoundingClientRect();
+    startX = event.clientX;
+    startY = event.clientY;
+    startLeft = rect.left;
+    startTop = rect.top;
+    bringToFront(modal);
+  });
+
+  handle.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== pointerId) return;
+    const next = keepInsideViewport(
+      startLeft + event.clientX - startX,
+      startTop + event.clientY - startY
+    );
+    windowElement.style.left = `${next.left}px`;
+    windowElement.style.top = `${next.top}px`;
+    windowElement.style.bottom = "auto";
+  });
+
+  function stopDragging(event) {
+    if (event.pointerId !== pointerId) return;
+    if (handle.hasPointerCapture(pointerId)) handle.releasePointerCapture(pointerId);
+    pointerId = null;
+  }
+
+  handle.addEventListener("pointerup", stopDragging);
+  handle.addEventListener("pointercancel", stopDragging);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  const topModal = visibleModals().sort(
+    (a, b) => Number(b.style.zIndex || 0) - Number(a.style.zIndex || 0)
+  )[0];
+  if (topModal) closeModal(topModal);
+});
+
+window.addEventListener("resize", layoutMinimizedWindows);
+</script>
+</body>
+</html>
