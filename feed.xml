@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://danamil.ru/</id>
+  <title>Danamil — Артур Виноградов</title>
+  <subtitle>Маркетинг, брендинг, медиа и стратегии</subtitle>
+  <link href="https://danamil.ru/feed.xml" rel="self"/>
+  <link href="https://danamil.ru/"/>
+  <updated>2026-07-26T12:00:00+03:00</updated>
+  <author>
+    <name>Артур Виноградов</name>
+    <uri>https://danamil.ru/</uri>
+    <email>artur@vinogradov.su</email>
+  </author>
+  <entry>
+    <id>https://danamil.ru/#profile</id>
+    <title>Артур Виноградов — маркетинг, брендинг и стратегии</title>
+    <link href="https://danamil.ru/"/>
+    <updated>2026-07-26T12:00:00+03:00</updated>
+    <summary>Артур Виноградов (Danamil) — маркетолог. Маркетинг, брендинг, коммуникационные стратегии, B2B, email-маркетинг и контент.</summary>
+    <category term="маркетинг"/>
+    <category term="брендинг"/>
+    <category term="стратегии"/>
+  </entry>
+  <entry>
+    <id>https://danamil.ru/work.html</id>
+    <title>Работа Артура Виноградова в маркетинге</title>
+    <link href="https://danamil.ru/work.html"/>
+    <updated>2026-07-26T12:00:00+03:00</updated>
+    <summary>Email-рассылки, B2B-презентации, выставочные стенды, наружная реклама и вертикальный контент.</summary>
+  </entry>
+</feed>

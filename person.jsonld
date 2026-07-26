@@ -1,0 +1,136 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://danamil.ru/#website",
+      "url": "https://danamil.ru/",
+      "name": "Danamil",
+      "alternateName": [
+        "Личный сайт Артура Виноградова",
+        "Артур Виноградов — Danamil"
+      ],
+      "description": "Официальный личный сайт Артура Виноградова о маркетинге, брендинге, стратегиях, работе и путешествиях.",
+      "inLanguage": "ru-RU",
+      "publisher": {
+        "@id": "https://danamil.ru/#artur-vinogradov"
+      },
+      "copyrightHolder": {
+        "@id": "https://danamil.ru/#artur-vinogradov"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://danamil.ru/#11tactical",
+      "name": "11tactical",
+      "alternateName": "Strike Force",
+      "url": "https://11tactical.ru/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://danamil.ru/#artur-vinogradov",
+      "name": "Артур Виноградов",
+      "givenName": "Артур",
+      "additionalName": "Антонович",
+      "familyName": "Виноградов",
+      "alternateName": [
+        "Danamil",
+        "danamil"
+      ],
+      "url": "https://danamil.ru/",
+      "mainEntityOfPage": {
+        "@id": "https://danamil.ru/#profile-page"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "@id": "https://danamil.ru/#profile-image",
+        "url": "https://danamil.ru/profile-photo.png",
+        "contentUrl": "https://danamil.ru/profile-photo.png",
+        "caption": "Артур Виноградов",
+        "representativeOfPage": true,
+        "width": 1122,
+        "height": 1402
+      },
+      "birthDate": "2007-11-20",
+      "birthPlace": {
+        "@type": "City",
+        "name": "Москва"
+      },
+      "email": "mailto:artur@vinogradov.su",
+      "jobTitle": "Маркетолог",
+      "description": "Артур Виноградов (Danamil) — маркетолог. Занимается маркетингом, брендингом, коммуникационными стратегиями, B2B-коммуникациями, email-маркетингом и контентом.",
+      "hasOccupation": {
+        "@type": "Occupation",
+        "@id": "https://danamil.ru/#occupation-marketer",
+        "name": "Маркетолог",
+        "description": "Маркетинг, брендинг, коммуникационные стратегии, B2B-коммуникации, email-маркетинг, презентации и контент.",
+        "occupationLocation": {
+          "@type": "City",
+          "name": "Москва"
+        },
+        "skills": [
+          "Маркетинг",
+          "Брендинг",
+          "Коммуникационные стратегии",
+          "B2B-маркетинг",
+          "Email-маркетинг",
+          "Контент-маркетинг",
+          "Презентации",
+          "Выставки"
+        ]
+      },
+      "knowsAbout": [
+        "Маркетинг",
+        "Брендинг",
+        "Коммуникационные стратегии",
+        "B2B-маркетинг",
+        "Email-маркетинг",
+        "Контент-маркетинг",
+        "Digital-маркетинг",
+        "Выставочный маркетинг"
+      ],
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://www.ranepa.ru/#organization",
+        "name": "Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации",
+        "alternateName": [
+          "РАНХиГС",
+          "RANEPA"
+        ],
+        "url": "https://www.ranepa.ru/"
+      },
+      "worksFor": {
+        "@id": "https://danamil.ru/#11tactical"
+      },
+      "sameAs": [
+        "https://t.me/danamil",
+        "https://instagram.com/danamilll",
+        "https://vk.com/cuclas",
+        "https://github.com/danamilll"
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "nickname",
+          "value": "Danamil"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "GitHub",
+          "value": "danamilll"
+        }
+      ],
+      "subjectOf": [
+        {
+          "@id": "https://danamil.ru/work.html#webpage"
+        },
+        {
+          "@id": "https://danamil.ru/about.html#profile-page"
+        },
+        {
+          "@id": "https://danamil.ru/contacts.html#webpage"
+        }
+      ]
+    }
+  ]
+}
