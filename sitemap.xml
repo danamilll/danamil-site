@@ -4,7 +4,7 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://danamil.ru/</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -15,13 +15,13 @@
   </url>
   <url>
     <loc>https://danamil.ru/work.html</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://danamil.ru/about.html</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -32,19 +32,194 @@
   </url>
   <url>
     <loc>https://danamil.ru/contacts.html</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://danamil.ru/travel.html</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/spb-nov-2024-1.jpg</image:loc>
+      <image:title>Путешествие: Санкт-Петербург</image:title>
+      <image:caption>Санкт-Петербург</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/spb-nov-2024-2.jpg</image:loc>
+      <image:title>Путешествие: Санкт-Петербург</image:title>
+      <image:caption>Санкт-Петербург</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/erevan-mar-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Ереван</image:title>
+      <image:caption>Ереван</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/erevan-mar-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Ереван</image:title>
+      <image:caption>Ереван</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/erevan-mar-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Ереван</image:title>
+      <image:caption>Ереван</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/istanbul-jul-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Стамбул</image:title>
+      <image:caption>Стамбул</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/istanbul-jul-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Стамбул</image:title>
+      <image:caption>Стамбул</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/istanbul-jul-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Стамбул</image:title>
+      <image:caption>Стамбул</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/belgrade-aug-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Белград</image:title>
+      <image:caption>Белград</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/belgrade-aug-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Белград</image:title>
+      <image:caption>Белград</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/belgrade-aug-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Белград</image:title>
+      <image:caption>Белград</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/montenegro-jul-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Черногория: Котор, Будва, Тиват</image:title>
+      <image:caption>Черногория: Котор, Будва, Тиват</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/montenegro-jul-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Черногория: Котор, Будва, Тиват</image:title>
+      <image:caption>Черногория: Котор, Будва, Тиват</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/montenegro-jul-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Черногория: Котор, Будва, Тиват</image:title>
+      <image:caption>Черногория: Котор, Будва, Тиват</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/spb-aug-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Санкт-Петербург</image:title>
+      <image:caption>Санкт-Петербург</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/spb-aug-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Санкт-Петербург</image:title>
+      <image:caption>Санкт-Петербург</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/spb-aug-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Санкт-Петербург</image:title>
+      <image:caption>Санкт-Петербург</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/nn-oct-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Нижний Новгород</image:title>
+      <image:caption>Нижний Новгород</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/nn-oct-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Нижний Новгород</image:title>
+      <image:caption>Нижний Новгород</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/nn-oct-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Нижний Новгород</image:title>
+      <image:caption>Нижний Новгород</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/istanbul-nov-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Стамбул</image:title>
+      <image:caption>Стамбул</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/istanbul-nov-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Стамбул</image:title>
+      <image:caption>Стамбул</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/istanbul-nov-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Стамбул</image:title>
+      <image:caption>Стамбул</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/armenia-dec-2025-1.jpg</image:loc>
+      <image:title>Путешествие: Ереван / Гюмри</image:title>
+      <image:caption>Ереван / Гюмри</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/armenia-dec-2025-2.jpg</image:loc>
+      <image:title>Путешествие: Ереван / Гюмри</image:title>
+      <image:caption>Ереван / Гюмри</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/armenia-dec-2025-3.jpg</image:loc>
+      <image:title>Путешествие: Ереван / Гюмри</image:title>
+      <image:caption>Ереван / Гюмри</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/srilanka-feb-2026-1.jpg</image:loc>
+      <image:title>Путешествие: Шри-Ланка</image:title>
+      <image:caption>Шри-Ланка</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/srilanka-feb-2026-2.jpg</image:loc>
+      <image:title>Путешествие: Шри-Ланка</image:title>
+      <image:caption>Шри-Ланка</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/srilanka-feb-2026-3.jpg</image:loc>
+      <image:title>Путешествие: Шри-Ланка</image:title>
+      <image:caption>Шри-Ланка</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/yaroslavl-may-2026-1.jpg</image:loc>
+      <image:title>Путешествие: Ярославль</image:title>
+      <image:caption>Ярославль</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/yaroslavl-may-2026-2.jpg</image:loc>
+      <image:title>Путешествие: Ярославль</image:title>
+      <image:caption>Ярославль</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/yaroslavl-may-2026-3.jpg</image:loc>
+      <image:title>Путешествие: Ярославль</image:title>
+      <image:caption>Ярославль</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/pereslavl-zalessky-jul-2026-1.jpg</image:loc>
+      <image:title>Путешествие: Артур Виноградов у воды в Переславле-Залесском</image:title>
+      <image:caption>Артур Виноградов у воды в Переславле-Залесском</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/pereslavl-zalessky-jul-2026-2.jpg</image:loc>
+      <image:title>Путешествие: Артур Виноградов катается на сапе в Переславле-Залесском</image:title>
+      <image:caption>Артур Виноградов катается на сапе в Переславле-Залесском</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://danamil.ru/travel-images/pereslavl-zalessky-jul-2026-3.jpg</image:loc>
+      <image:title>Путешествие: Артур Виноградов на берегу Плещеева озера</image:title>
+      <image:caption>Артур Виноградов на берегу Плещеева озера</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://danamil.ru/photo.html</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image>
