@@ -373,6 +373,99 @@ button.dot:focus-visible {
   outline: none;
 }
 
+.cookie-panel {
+  position: fixed;
+  z-index: 110;
+  right: 22px;
+  bottom: 22px;
+  width: min(440px, calc(100vw - 28px));
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.09), transparent 42%),
+    rgba(18,20,25,.97);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(24px);
+}
+
+.cookie-panel[hidden],
+.cookie-settings[hidden] { display: none; }
+
+.cookie-copy {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.cookie-details {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--brass);
+  font-size: 12px;
+  text-decoration-color: rgba(196,164,106,.45);
+  text-underline-offset: 3px;
+}
+
+.cookie-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 16px;
+}
+
+.cookie-accept {
+  min-width: 78px;
+  min-height: 42px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--text);
+  color: #090a0d;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cookie-decline {
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cookie-accept:hover,
+.cookie-accept:focus-visible { background: var(--brass); }
+.cookie-decline:hover,
+.cookie-decline:focus-visible { color: var(--text); }
+.cookie-accept:focus-visible,
+.cookie-decline:focus-visible,
+.cookie-toggle:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+.cookie-toggle {
+  position: fixed;
+  z-index: 109;
+  right: 18px;
+  bottom: 16px;
+  min-height: 32px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(18,20,25,.88);
+  color: var(--muted);
+  font: 11px "IBM Plex Mono", monospace;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+.cookie-toggle[hidden] { display: none; }
+
+.cookie-toggle:hover { color: var(--text); border-color: rgba(196,164,106,.58); }
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(18px) scale(.99); }
   to { opacity: 1; transform: translateY(0) scale(1); }
@@ -421,6 +514,15 @@ button.dot:focus-visible {
   }
 
   .floating-content h2 { font-size: 42px; }
+
+  .cookie-panel {
+    right: 12px;
+    bottom: 12px;
+    width: min(440px, calc(100vw - 24px));
+    padding: 17px;
+  }
+
+  .cookie-toggle { right: 12px; bottom: 12px; }
 
   .window-link,
   .window-ghost {
@@ -651,19 +753,6 @@ button.dot:focus-visible {
 }
 </script>
 
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-   (function(m,e,t,r,i,k,a){
-       m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-   })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111986974', 'ym');
-
-   ym(111986974, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/111986974" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </head>
 <body>
   <div class="desktop">
@@ -792,7 +881,105 @@ button.dot:focus-visible {
     </div>
   </section>
 
+  <aside class="cookie-panel" id="cookie-panel" role="region" aria-label="Настройки аналитики" hidden>
+    <div class="cookie-settings" id="cookie-settings">
+      <p class="cookie-copy">Я лично, этими вот руками 🫲 🫱 собираю ваши куки и информацию о действиях. Смиритесь! или уходите.</p>
+      <a class="cookie-details" href="privacy.html">что именно</a>
+      <div class="cookie-actions">
+        <button class="cookie-accept" type="button" data-cookie-choice="granted">Ок</button>
+        <button class="cookie-decline" type="button" data-cookie-choice="denied">уйти без аналитики</button>
+      </div>
+    </div>
+  </aside>
+  <button class="cookie-toggle" id="cookie-toggle" type="button" aria-controls="cookie-panel" hidden>cookies</button>
+
   <script>
+const METRIKA_ID = 111986974;
+const CONSENT_KEY = "danamil-analytics-consent";
+const cookiePanel = document.getElementById("cookie-panel");
+const cookieSettings = document.getElementById("cookie-settings");
+const cookieToggle = document.getElementById("cookie-toggle");
+let metrikaInitialized = false;
+
+function readConsent() {
+  try {
+    return localStorage.getItem(CONSENT_KEY);
+  } catch (error) {
+    return null;
+  }
+}
+
+function showCookieSettings() {
+  cookieSettings.hidden = false;
+  cookiePanel.hidden = false;
+  cookieToggle.hidden = true;
+  document.querySelector("[data-cookie-choice='granted']").focus();
+}
+
+function loadMetrika() {
+  if (metrikaInitialized) return;
+  metrikaInitialized = true;
+  window["disableYaCounter" + METRIKA_ID] = false;
+
+  (function (m, e, t, r, i, k, a) {
+    m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+    m[i].l = 1 * new Date();
+    for (let j = 0; j < document.scripts.length; j += 1) {
+      if (document.scripts[j].src === r) return;
+    }
+    k = e.createElement(t);
+    a = e.getElementsByTagName(t)[0];
+    k.async = 1;
+    k.src = r;
+    a.parentNode.insertBefore(k, a);
+  })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=" + METRIKA_ID, "ym");
+
+  window.ym(METRIKA_ID, "init", {
+    ssr: true,
+    webvisor: true,
+    clickmap: true,
+    ecommerce: "dataLayer",
+    referrer: document.referrer,
+    url: location.href,
+    accurateTrackBounce: true,
+    trackLinks: true
+  });
+}
+
+function saveConsent(choice) {
+  const previousChoice = readConsent();
+  try {
+    localStorage.setItem(CONSENT_KEY, choice);
+  } catch (error) {
+    // Keep the site usable if browser storage is unavailable.
+  }
+  cookiePanel.hidden = true;
+  cookieToggle.hidden = false;
+
+  if (choice === "granted") {
+    loadMetrika();
+  } else if (previousChoice === "granted") {
+    window["disableYaCounter" + METRIKA_ID] = true;
+    if (typeof window.ym === "function") window.ym(METRIKA_ID, "destruct");
+    location.reload();
+  }
+}
+
+document.querySelectorAll("[data-cookie-choice]").forEach((button) => {
+  button.addEventListener("click", () => saveConsent(button.dataset.cookieChoice));
+});
+
+cookieToggle.addEventListener("click", showCookieSettings);
+
+if (readConsent() === "granted") {
+  cookieToggle.hidden = false;
+  loadMetrika();
+} else if (readConsent() === "denied") {
+  cookieToggle.hidden = false;
+} else {
+  showCookieSettings();
+}
+
 const windows = [...document.querySelectorAll(".draggable-window")];
 let highestZ = 80;
 
