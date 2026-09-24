@@ -186,9 +186,12 @@ h1 {
   top: clamp(18px, 10vh, 110px);
   max-height: calc(100vh - 36px);
   overflow: auto;
+  scrollbar-width: none;
   z-index: 25;
   animation: windowIn .28s ease both;
 }
+
+.profile-window::-webkit-scrollbar { display: none; }
 
 .floating-window {
   position: fixed;
@@ -279,6 +282,8 @@ button.dot:focus-visible {
 .photo {
   width: 100%;
   aspect-ratio: 4 / 5;
+  display: flex;
+  justify-content: center;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.14);
   border-radius: 24px;
@@ -290,7 +295,7 @@ button.dot:focus-visible {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center center;
+  object-position: 50% 50%;
 }
 
 .tags {
@@ -486,8 +491,12 @@ button.dot:focus-visible {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     padding-bottom: 8px;
   }
+
+  .main-buttons::-webkit-scrollbar { display: none; }
 
   .profile-window {
     right: 24px;
@@ -504,13 +513,29 @@ button.dot:focus-visible {
   .main-button { min-width: 148px; min-height: 92px; border-radius: 24px; }
   .main-button-title { font-size: 19px; }
 
-  .profile-window,
   .floating-window {
     left: 14px !important;
     right: auto !important;
     top: 70px !important;
     width: calc(100vw - 28px) !important;
     max-height: calc(100vh - 84px);
+    overflow-y: auto;
+  }
+
+  .profile-window {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-height: none;
+    margin: 30px auto 0;
+    overflow: hidden;
+  }
+
+  .window-top {
+    cursor: default;
+    touch-action: pan-y;
   }
 
   .floating-content h2 { font-size: 42px; }
@@ -1057,7 +1082,11 @@ windows.forEach((windowElement) => {
   let startTop = 0;
 
   handle.addEventListener("pointerdown", (event) => {
-    if (event.target.closest("button") || windowElement.classList.contains("minimized")) return;
+    if (
+      event.target.closest("button") ||
+      windowElement.classList.contains("minimized") ||
+      window.matchMedia("(max-width: 760px)").matches
+    ) return;
 
     pointerId = event.pointerId;
     handle.setPointerCapture(pointerId);
